@@ -1,8 +1,8 @@
 function GameBoard() {
 	const board = [
-		["X", "O", "X"],
-		["X", "O", "X"],
-		["X", "O", ""],
+		["", "", ""],
+		["", "", ""],
+		["", "", ""],
 	];
 
 	//=========================================================================
@@ -73,22 +73,37 @@ function Game(playerOne, playerTwo) {
 	//=========================================================================
 
 	const playTurn = function playTurn(player, row, column) {
-		displayTurn();
-		//prettier-ignore
-		if ((boardArr[row][column] === "")) {
-			boardArr[row][column] = player.symbol;
-			board.printBoard();
-		} 
+		// //prettier-ignore
+		// displayTurn();
 
-		else {
-			const err = "This cell is occupied!";
-			throw new Error(err);
-		}
-		changeTurn();
+		// //prettier-ignore
+		// if ((boardArr[row][column] === "")) {
+		// 		boardArr[row][column] = player.symbol;
+		// 		board.printBoard();
+		// 	}
 
-		for (let row = 0; row < 3; row++) {
-			for (let col = 0; col < 3; col++) {} //for()
-		} //for()
+		// 	else {
+		// 		const err = "This cell is occupied!";
+		// 		throw new Error(err);
+		// 	}
+		// changeTurn();
+
+		/**
+		 * TODO: Find out why nothing is being shown on console when debugging.
+		 */
+		while (!isFull()) {
+			if (boardArr[row][column] === "") {
+				boardArr[row][column] = player.symbol;
+			} else if (
+				boardArr[row][column] === "X" ||
+				boardArr[row][column] === "O"
+			) {
+				const err = "This cell is occupied!";
+				throw new Error(err);
+			}
+
+			changeTurn();
+		} // while()
 	}; //playTurn()
 
 	const isFull = function isFull() {
@@ -143,18 +158,6 @@ const player2 = Player("John", "O");
 
 const game = Game(player1, player2);
 
-game.board.printBoard();
+game.playTurn(player1, 0, 1);
 
-console.log(game.isFull());
-
-// game.playTurn(player1, 1, 2);
-
-// // game.board.printBoard();
-
-// game.playTurn(player2, 1, 1);
-
-// // game.board.printBoard();
-
-// game.playTurn(player1, 0, 2);
-
-// game.playTurn(player2, 0, 2);
+game.playTurn(player2, 2, 2);
