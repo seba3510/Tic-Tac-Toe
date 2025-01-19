@@ -5,6 +5,8 @@ function GameBoard() {
 		["", "", ""],
 	];
 
+	let sizeCounter = 0;
+
 	//=========================================================================
 
 	const printBoard = function printBoard() {
@@ -18,6 +20,10 @@ function GameBoard() {
 		console.log(boardDisplay);
 	}; //printBoard()
 
+	const getSize = function getSize() {
+		return sizeCounter;
+	}; // getSize()
+
 	//=========================================================================
 
 	const resetBoard = function resetBoard() {
@@ -26,6 +32,7 @@ function GameBoard() {
 				board[row][col] = "";
 			} //for()
 		} //for()
+		sizeCounter = 0;
 	}; //resetBoard()
 
 	//=========================================================================
@@ -36,7 +43,7 @@ function GameBoard() {
 
 	//=========================================================================
 
-	return { printBoard, resetBoard, getBoard };
+	return { printBoard, resetBoard, getBoard, getSize };
 } //GameBoard()
 
 //=========================================================================
@@ -72,7 +79,7 @@ function Game(playerOne, playerTwo) {
 
 	//=========================================================================
 
-	const playTurn = function playTurn(player, row, column) {
+	const playRound = function playRound(row, col) {
 		// //prettier-ignore
 		// displayTurn();
 
@@ -88,39 +95,38 @@ function Game(playerOne, playerTwo) {
 		// 	}
 		// changeTurn();
 
-		/**
-		 * TODO: Find out why nothing is being shown on console when debugging.
-		 */
-		while (!isFull()) {
-			if (boardArr[row][column] === "") {
-				boardArr[row][column] = player.symbol;
-			} else if (
-				boardArr[row][column] === "X" ||
-				boardArr[row][column] === "O"
-			) {
-				const err = "This cell is occupied!";
-				throw new Error(err);
-			}
-
-			changeTurn();
+		//prettier-ignore
+		while ((!isFull())) {
+			displayTurn();
+			board.printBoard();
+			showPrompt();
+			console.log(sizeCounter);
 		} // while()
+		determineWinner();
 	}; //playTurn()
 
+	const addSymbol = function addSymbol(player, row, column) {
+		//prettier-ignore
+		if ((boardArr[row][column] === "")) {
+			boardArr[row][column] = player.symbol;
+			changeTurn();
+			sizeCounter++;
+		}//if 
+
+		else {
+			const err = "This cell is occupied!";
+			console.error(err);
+		} //else
+	}; //addSymbol()
+
+	const showPrompt = function showPrompt() {
+		let row = window.prompt("Enter the row: ");
+		let column = window.prompt("Enter the column");
+		addSymbol(activePlayer, row, column);
+	}; //showPrompt()
+
 	const isFull = function isFull() {
-		let isFull;
-
-		for (let row = 0; row < 3; row++) {
-			for (let col = 0; col < 3; col++) {
-				//prettier-ignore
-				if ((boardArr[row][col] != "")) {
-					isFull = false;
-					break;
-				} //isFull()
-
-				isFull = true;
-			} //for()
-		} //for()
-		return isFull;
+		return board.getSize() === 9;
 	}; //isFull()
 
 	//=========================================================================
@@ -141,6 +147,12 @@ function Game(playerOne, playerTwo) {
 
 	//=========================================================================
 
+	const determineWinner = function determineWinner() {
+		const winCombinations = [[0, 1, 2], []];
+	}; //determineWinner()
+
+	//=========================================================================
+
 	const displayTurn = function displayTurn() {
 		const msg = `${getActivePlayer().name}'s turn`;
 		console.log(msg);
@@ -148,7 +160,7 @@ function Game(playerOne, playerTwo) {
 
 	//=========================================================================
 
-	return { board, playTurn, displayTurn, changeTurn, isFull };
+	return { playRound, displayTurn, changeTurn, isFull };
 } //Game()
 
 //=========================================================================
@@ -157,7 +169,4 @@ const player1 = Player("Sebastian", "X");
 const player2 = Player("John", "O");
 
 const game = Game(player1, player2);
-
-game.playTurn(player1, 0, 1);
-
-game.playTurn(player2, 2, 2);
+game.playRound();
