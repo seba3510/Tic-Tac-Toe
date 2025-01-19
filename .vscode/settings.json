@@ -1,4 +1,3 @@
 {
-	"editor.formatOnSave": true,
-	"diffEditor.codeLens": true
+	"editor.formatOnSave": true
 }
