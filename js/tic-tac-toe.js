@@ -1,11 +1,11 @@
 function GameBoard() {
 	const board = [
-		["", "", ""],
-		["", "", ""],
-		["", "", ""],
+		["X", "O", "X"],
+		["X", "O", "X"],
+		["X", "O", ""],
 	];
 
-	//======================================================
+	//=========================================================================
 
 	const printBoard = function printBoard() {
 		const boardDisplay = `
@@ -18,7 +18,7 @@ function GameBoard() {
 		console.log(boardDisplay);
 	}; //printBoard()
 
-	//======================================================
+	//=========================================================================
 
 	const resetBoard = function resetBoard() {
 		for (let row = 0; row < 3; row++) {
@@ -28,24 +28,23 @@ function GameBoard() {
 		} //for()
 	}; //resetBoard()
 
-	//======================================================
+	//=========================================================================
 
 	const getBoard = function getBoard() {
 		return board;
 	}; //getBoard()
 
-	//======================================================
+	//=========================================================================
 
 	return { printBoard, resetBoard, getBoard };
 } //GameBoard()
 
-//======================================================
-
+//=========================================================================
 function Player(name, symbol) {
 	return { name, symbol };
 } //Player()
 
-//======================================================
+//=========================================================================
 
 function Game(playerOne, playerTwo) {
 	const board = GameBoard();
@@ -54,22 +53,24 @@ function Game(playerOne, playerTwo) {
 	const players = [
 		{
 			name: playerOne.name,
-			symbol: player1.symbol,
+			symbol: playerOne.symbol,
 		},
 
 		{
 			name: playerTwo.name,
-			symbol: player2.symbol,
+			symbol: playerTwo.symbol,
 		},
 	];
 
 	let activePlayer = players[0];
 
+	//=========================================================================
+
 	const getActivePlayer = function getActivePlayer() {
 		return activePlayer;
 	}; //getActivePlayer()
 
-	//==================================================
+	//=========================================================================
 
 	const playTurn = function playTurn(player, row, column) {
 		displayTurn();
@@ -84,9 +85,30 @@ function Game(playerOne, playerTwo) {
 			throw new Error(err);
 		}
 		changeTurn();
+
+		for (let row = 0; row < 3; row++) {
+			for (let col = 0; col < 3; col++) {} //for()
+		} //for()
 	}; //playTurn()
 
-	//==================================================
+	const isFull = function isFull() {
+		let isFull;
+
+		for (let row = 0; row < 3; row++) {
+			for (let col = 0; col < 3; col++) {
+				//prettier-ignore
+				if ((boardArr[row][col] != "")) {
+					isFull = false;
+					break;
+				} //isFull()
+
+				isFull = true;
+			} //for()
+		} //for()
+		return isFull;
+	}; //isFull()
+
+	//=========================================================================
 
 	const changeTurn = function changeTurn() {
 		//prettier-ignore
@@ -102,33 +124,37 @@ function Game(playerOne, playerTwo) {
 		} // switch()
 	}; //changeTurn()
 
-	//==================================================
+	//=========================================================================
 
 	const displayTurn = function displayTurn() {
 		const msg = `${getActivePlayer().name}'s turn`;
 		console.log(msg);
 	}; //displayTurn()
 
-	//==================================================
+	//=========================================================================
 
-	return { board, playTurn, displayTurn, changeTurn };
+	return { board, playTurn, displayTurn, changeTurn, isFull };
 } //Game()
 
-//==================================================
+//=========================================================================
 
 const player1 = Player("Sebastian", "X");
 const player2 = Player("John", "O");
 
 const game = Game(player1, player2);
 
-game.playTurn(player1, 1, 2);
+game.board.printBoard();
 
-// game.board.printBoard();
+console.log(game.isFull());
 
-game.playTurn(player2, 1, 1);
+// game.playTurn(player1, 1, 2);
 
-// game.board.printBoard();
+// // game.board.printBoard();
 
-game.playTurn(player1, 0, 2);
+// game.playTurn(player2, 1, 1);
 
-game.playTurn(player2, 0, 2);
+// // game.board.printBoard();
+
+// game.playTurn(player1, 0, 2);
+
+// game.playTurn(player2, 0, 2);
