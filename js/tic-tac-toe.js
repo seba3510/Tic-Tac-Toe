@@ -52,23 +52,55 @@ function Game() {
 	const boardArr = board.getBoard();
 	const player1 = Player("Player 1", "X");
 	const player2 = Player("Player 2", "O");
+	let currentTurn = player1;
 
 	//==================================================
 
 	const playTurn = function playTurn(player, row, column) {
-		//prettier-ignore
-		if((boardArr[row][column] === "")){
-			boardArr[row][column] = player.symbol;
-		}
+		displayTurn();
 
-		else{
+		//prettier-ignore
+		if ((boardArr[row][column] === "")) {
+			boardArr[row][column] = player.symbol;
+			board.printBoard();
+		} 
+
+		else {
 			const err = "This cell is occupied!";
 			throw new Error(err);
 		}
+		changeTurn();
 	}; //playTurn()
 
-	return { board, playTurn };
+	//==================================================
+
+	const changeTurn = function changeTurn() {
+		//prettier-ignore
+		switch ((currentTurn)) {
+			case player1:
+				currentTurn = player2;
+				break;
+			case player2:
+				currentTurn = player1;
+				break;
+			default:
+				break;
+		} // switch()
+	}; //changeTurn()
+
+	//==================================================
+
+	const displayTurn = function displayTurn() {
+		const msg = `${currentTurn.name}'s turn`;
+		console.log(msg);
+	}; //displayTurn()
+
+	//==================================================
+
+	return { board, playTurn, displayTurn };
 } //Game()
+
+//==================================================
 
 const player1 = Player("Sebastian", "X");
 const player2 = Player("John", "O");
@@ -77,8 +109,10 @@ const game = Game();
 
 game.playTurn(player1, 1, 2);
 
-game.board.printBoard();
+// game.board.printBoard();
 
-game.playTurn(player2, 1, 2);
+game.playTurn(player2, 1, 1);
 
-game.board.printBoard();
+// game.board.printBoard();
+
+game.playTurn(player1, 0, 2);
