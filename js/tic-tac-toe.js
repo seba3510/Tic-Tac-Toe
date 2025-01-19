@@ -105,7 +105,7 @@ function Game(playerOne, playerTwo) {
 	//==================================================
 
 	const displayTurn = function displayTurn() {
-		const msg = `${activePlayer.name}'s turn`;
+		const msg = `${getActivePlayer().name}'s turn`;
 		console.log(msg);
 	}; //displayTurn()
 
