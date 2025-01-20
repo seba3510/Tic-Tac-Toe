@@ -121,6 +121,7 @@ function Game(playerOne, playerTwo) {
 	const isFull = function isFull() {
 		let n = boardArr.length;
 		let result = false;
+
 		for (let row = 0; row < n; row++) {
 			for (let col = 0; col < n; col++) {
 				let elem = boardArr[row][col];
