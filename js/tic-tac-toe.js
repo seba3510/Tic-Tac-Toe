@@ -95,15 +95,15 @@ function Game(playerOne, playerTwo) {
 			showPrompt();
 		} // while()
 		console.log("The board is full!");
-		// determineWinner();
+		determineWinner();
 	}; //playTurn()
+	//=========================================================================
 
 	const addSymbol = function addSymbol(player, row, column) {
 		//prettier-ignore
 		if ((boardArr[row][column] === null)) {
 			boardArr[row][column] = player.symbol;
 			changeTurn();
-
 		}//if 
 
 		else {
@@ -111,12 +111,14 @@ function Game(playerOne, playerTwo) {
 			console.error(err);
 		} //else
 	}; //addSymbol()
+	//=========================================================================
 
 	const showPrompt = function showPrompt() {
 		let row = window.prompt("Enter the row: ");
 		let column = window.prompt("Enter the column");
 		addSymbol(activePlayer, row, column);
 	}; //showPrompt()
+	//=========================================================================
 
 	const isFull = function isFull() {
 		let n = boardArr.length;
