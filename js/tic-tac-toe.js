@@ -1,11 +1,9 @@
 function GameBoard() {
 	const board = [
-		["", "", ""],
-		["", "", ""],
-		["", "", ""],
+		[null, null, null],
+		[null, null, null],
+		[null, null, null],
 	];
-
-	let sizeCounter = 0;
 
 	//=========================================================================
 
@@ -20,19 +18,14 @@ function GameBoard() {
 		console.log(boardDisplay);
 	}; //printBoard()
 
-	const getSize = function getSize() {
-		return sizeCounter;
-	}; // getSize()
-
 	//=========================================================================
 
 	const resetBoard = function resetBoard() {
 		for (let row = 0; row < 3; row++) {
 			for (let col = 0; col < 3; col++) {
-				board[row][col] = "";
+				board[row][col] = null;
 			} //for()
 		} //for()
-		sizeCounter = 0;
 	}; //resetBoard()
 
 	//=========================================================================
@@ -43,7 +36,7 @@ function GameBoard() {
 
 	//=========================================================================
 
-	return { printBoard, resetBoard, getBoard, getSize };
+	return { printBoard, resetBoard, getBoard };
 } //GameBoard()
 
 //=========================================================================
@@ -100,17 +93,17 @@ function Game(playerOne, playerTwo) {
 			displayTurn();
 			board.printBoard();
 			showPrompt();
-			console.log(sizeCounter);
 		} // while()
-		determineWinner();
+		console.log("The board is full!");
+		// determineWinner();
 	}; //playTurn()
 
 	const addSymbol = function addSymbol(player, row, column) {
 		//prettier-ignore
-		if ((boardArr[row][column] === "")) {
+		if ((boardArr[row][column] === null)) {
 			boardArr[row][column] = player.symbol;
 			changeTurn();
-			sizeCounter++;
+
 		}//if 
 
 		else {
@@ -126,7 +119,22 @@ function Game(playerOne, playerTwo) {
 	}; //showPrompt()
 
 	const isFull = function isFull() {
-		return board.getSize() === 9;
+		let n = boardArr.length;
+		let result = false;
+		for (let row = 0; row < n; row++) {
+			for (let col = 0; col < n; col++) {
+				let elem = boardArr[row][col];
+
+				//prettier-ignore
+				if ((elem != null)) {
+					result = true;
+					continue;
+				} //if()
+
+				result = false;
+			} //for()
+		} //for()
+		return result;
 	}; //isFull()
 
 	//=========================================================================
@@ -148,7 +156,19 @@ function Game(playerOne, playerTwo) {
 	//=========================================================================
 
 	const determineWinner = function determineWinner() {
-		const winCombinations = [[0, 1, 2], []];
+		const winCombinations = [
+			[0, 1, 2],
+			[3, 4, 5],
+			[6, 7, 8],
+
+			[0, 3, 6],
+			[1, 4, 7],
+			[2, 5, 8],
+
+			[0, 4, 8],
+			[2, 4, 6],
+		];
+		let n = winCombinations.length;
 	}; //determineWinner()
 
 	//=========================================================================
