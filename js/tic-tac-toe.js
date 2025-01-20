@@ -41,6 +41,8 @@ function GameBoard() {
 
 //=========================================================================
 function Player(name, symbol) {
+	this.name = name;
+	this.symbol = symbol;
 	return { name, symbol };
 } //Player()
 
@@ -73,21 +75,6 @@ function Game(playerOne, playerTwo) {
 	//=========================================================================
 
 	const playRound = function playRound(row, col) {
-		// //prettier-ignore
-		// displayTurn();
-
-		// //prettier-ignore
-		// if ((boardArr[row][column] === "")) {
-		// 		boardArr[row][column] = player.symbol;
-		// 		board.printBoard();
-		// 	}
-
-		// 	else {
-		// 		const err = "This cell is occupied!";
-		// 		throw new Error(err);
-		// 	}
-		// changeTurn();
-
 		//prettier-ignore
 		while ((!isFull())) {
 			displayTurn();
@@ -159,19 +146,7 @@ function Game(playerOne, playerTwo) {
 	//=========================================================================
 
 	const determineWinner = function determineWinner() {
-		const winCombinations = [
-			[0, 1, 2],
-			[3, 4, 5],
-			[6, 7, 8],
-
-			[0, 3, 6],
-			[1, 4, 7],
-			[2, 5, 8],
-
-			[0, 4, 8],
-			[2, 4, 6],
-		];
-		let n = winCombinations.length;
+		//TODO: Implement this function
 	}; //determineWinner()
 
 	//=========================================================================
