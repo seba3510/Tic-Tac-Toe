@@ -66,6 +66,8 @@ function Game(playerOne, playerTwo) {
 
 	let activePlayer = players[0];
 
+	let gameOver = false;
+
 	//=========================================================================
 
 	const getActivePlayer = function getActivePlayer() {
@@ -76,13 +78,12 @@ function Game(playerOne, playerTwo) {
 
 	const playRound = function playRound(row, col) {
 		//prettier-ignore
-		while ((!isFull())) {
+		while ((gameOver != true)) {
 			displayTurn();
 			board.printBoard();
 			showPrompt();
+			determineWinner();
 		} // while()
-		console.log("The board is full!");
-		determineWinner();
 	}; //playTurn()
 	//=========================================================================
 
@@ -107,28 +108,6 @@ function Game(playerOne, playerTwo) {
 	}; //showPrompt()
 	//=========================================================================
 
-	const isFull = function isFull() {
-		let n = boardArr.length;
-		let result = false;
-
-		for (let row = 0; row < n; row++) {
-			for (let col = 0; col < n; col++) {
-				let elem = boardArr[row][col];
-
-				//prettier-ignore
-				if ((elem != null)) {
-					result = true;
-					continue;
-				} //if()
-
-				result = false;
-			} //for()
-		} //for()
-		return result;
-	}; //isFull()
-
-	//=========================================================================
-
 	const changeTurn = function changeTurn() {
 		//prettier-ignore
 		switch ((activePlayer)) {
@@ -151,6 +130,12 @@ function Game(playerOne, playerTwo) {
 
 	//=========================================================================
 
+	const showWinningMsg = function showWinningMsg() {
+		const msg = `${getActivePlayer().name} wins!`;
+		console.log(msg);
+	}; //showWinningMsg()
+	//=========================================================================
+
 	const displayTurn = function displayTurn() {
 		const msg = `${getActivePlayer().name}'s turn`;
 		console.log(msg);
@@ -158,7 +143,7 @@ function Game(playerOne, playerTwo) {
 
 	//=========================================================================
 
-	return { playRound, displayTurn, changeTurn, isFull };
+	return { playRound, displayTurn, changeTurn, showWinningMsg };
 } //Game()
 
 //=========================================================================
