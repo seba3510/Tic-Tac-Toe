@@ -156,7 +156,26 @@ function Game(playerOne, playerTwo) {
 				showWinningMsg();
 				break;
 			} //if
-		}
+		} //for()
+
+		//Check diagonals
+
+		//prettier-ignore
+		if ((boardArr[0][0] != null) &&
+			(boardArr[0][0] === boardArr[1][1]) &&
+			(boardArr[1][1] === boardArr[2][2])) {
+			gameOver = true;
+			showWinningMsg();
+			return;
+			}//if
+
+			else if((boardArr[2][0] != null)&&
+			(boardArr[2][0] === boardArr[1][1])&&
+			(boardArr[1][1] === boardArr[0][2])){
+				gameOver = true;
+				showWinningMsg();
+				return;
+			} //else if
 	}; //determineWinner()
 
 	//=========================================================================
