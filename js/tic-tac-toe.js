@@ -65,6 +65,7 @@ function Game(playerOne, playerTwo) {
 	];
 
 	let activePlayer = players[0];
+	let previousPlayer;
 
 	let gameOver = false;
 
@@ -84,6 +85,7 @@ function Game(playerOne, playerTwo) {
 			board.printBoard();
 			determineWinner();
 			console.log(`Is the game over?:  ${gameOver}`);
+			// changeTurn();
 		} // while()
 	}; //playTurn()
 	//=========================================================================
@@ -92,7 +94,7 @@ function Game(playerOne, playerTwo) {
 		//prettier-ignore
 		if ((boardArr[row][column] === null)) {
 			boardArr[row][column] = player.symbol;
-			changeTurn();
+			changeTurn(); 
 		}//if 
 
 		else {
@@ -111,22 +113,22 @@ function Game(playerOne, playerTwo) {
 
 	const changeTurn = function changeTurn() {
 		//prettier-ignore
-		if ((gameOver = false) && (activePlayer === players[0])) {
-			activePlayer === players[1];
-		} //if
+		if(activePlayer === players[0] && gameOver == false){
+			activePlayer = players[1];
+			previousPlayer = players[0];
 
-		else if ((gameOver = false) && (activePlayer == players[1])) {
+		}//if
+
+		else if(activePlayer === players[1] && gameOver == false){
 			activePlayer = players[0];
-		} // else if
-
-		else {
-			; //No action needed.
-		} // else
+			previousPlayer = players[1];
+		}
 	}; //changeTurn()
 
 	//=========================================================================
 
 	const determineWinner = function determineWinner() {
+		// changeTurn();
 		//TODO: Implement this function
 		let n = boardArr.length;
 		//Check rows
@@ -147,7 +149,7 @@ function Game(playerOne, playerTwo) {
 	//=========================================================================
 
 	const showWinningMsg = function showWinningMsg() {
-		const msg = `${getActivePlayer().name} wins!`;
+		const msg = `${previousPlayer.name} wins!`;
 		console.log(msg);
 	}; //showWinningMsg()
 	//=========================================================================
