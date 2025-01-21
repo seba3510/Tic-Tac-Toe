@@ -111,16 +111,17 @@ function Game(playerOne, playerTwo) {
 
 	const changeTurn = function changeTurn() {
 		//prettier-ignore
-		switch ((activePlayer)) {
-			case players[0]:
-				activePlayer = players[1];
-				break;
-			case players[1]:
-				activePlayer = players[0];
-				break;
-			default:
-				break;
-		} // switch()
+		if ((gameOver = false) && (activePlayer === players[0])) {
+			activePlayer === players[1];
+		} //if
+
+		else if ((gameOver = false) && (activePlayer == players[1])) {
+			activePlayer = players[0];
+		} // else if
+
+		else {
+			; //No action needed.
+		} // else
 	}; //changeTurn()
 
 	//=========================================================================
@@ -130,10 +131,11 @@ function Game(playerOne, playerTwo) {
 		let n = boardArr.length;
 		//Check rows
 		for (let row = 0; row < n; row++) {
+			//prettier-ignore
 			if (
-				boardArr[row][0] != null &&
-				boardArr[row][0] === boardArr[row][1] &&
-				boardArr[row][1] === boardArr[row][2]
+				(boardArr[row][0] != null) &&
+				(boardArr[row][0] === boardArr[row][1]) &&
+				(boardArr[row][1] === boardArr[row][2])
 			) {
 				gameOver = true;
 				showWinningMsg();
