@@ -144,6 +144,19 @@ function Game(playerOne, playerTwo) {
 				break;
 			} //if
 		} //for()
+
+		//Check columns
+		for (let col = 0; col < n; col++) {
+			if (
+				boardArr[0][col] != null &&
+				boardArr[0][col] === boardArr[1][col] &&
+				boardArr[1][col] === boardArr[2][col]
+			) {
+				gameOver = true;
+				showWinningMsg();
+				break;
+			} //if
+		}
 	}; //determineWinner()
 
 	//=========================================================================
