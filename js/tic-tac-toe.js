@@ -130,6 +130,13 @@ function Game(playerOne, playerTwo) {
 	const determineWinner = function determineWinner() {
 		// changeTurn();
 		//TODO: Implement this function
+		checkRows();
+		checkColumns();
+		checkDiagonals();
+	}; //determineWinner()
+
+	//=========================================================================
+	const checkRows = function checkRows() {
 		let n = boardArr.length;
 		//Check rows
 		for (let row = 0; row < n; row++) {
@@ -144,8 +151,11 @@ function Game(playerOne, playerTwo) {
 				break;
 			} //if
 		} //for()
+	}; //checkRows()
+	//=========================================================================
+	const checkColumns = function checkColumns() {
+		let n = boardArr.length;
 
-		//Check columns
 		for (let col = 0; col < n; col++) {
 			if (
 				boardArr[0][col] != null &&
@@ -157,27 +167,27 @@ function Game(playerOne, playerTwo) {
 				break;
 			} //if
 		} //for()
+	}; //checkColumns()
 
-		//Check diagonals
-
+	//=========================================================================
+	const checkDiagonals = function checkDiagonals() {
 		//prettier-ignore
 		if ((boardArr[0][0] != null) &&
 			(boardArr[0][0] === boardArr[1][1]) &&
 			(boardArr[1][1] === boardArr[2][2])) {
-			gameOver = true;
-			showWinningMsg();
-			return;
-			}//if
-
-			else if((boardArr[2][0] != null)&&
-			(boardArr[2][0] === boardArr[1][1])&&
-			(boardArr[1][1] === boardArr[0][2])){
 				gameOver = true;
 				showWinningMsg();
 				return;
-			} //else if
-	}; //determineWinner()
-
+				}//if
+	
+				else if((boardArr[2][0] != null)&&
+						(boardArr[2][0] === boardArr[1][1])&&
+						(boardArr[1][1] === boardArr[0][2])){
+							gameOver = true;
+							showWinningMsg();
+							return;
+				} //else if
+	}; //checkDiagonals()
 	//=========================================================================
 
 	const showWinningMsg = function showWinningMsg() {
