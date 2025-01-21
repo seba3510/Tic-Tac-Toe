@@ -76,13 +76,14 @@ function Game(playerOne, playerTwo) {
 
 	//=========================================================================
 
-	const playRound = function playRound(row, col) {
+	const playRound = function playRound() {
 		//prettier-ignore
 		while ((gameOver != true)) {
 			displayTurn();
-			board.printBoard();
 			showPrompt();
+			board.printBoard();
 			determineWinner();
+			console.log(`Is the game over?:  ${gameOver}`);
 		} // while()
 	}; //playTurn()
 	//=========================================================================
@@ -126,6 +127,19 @@ function Game(playerOne, playerTwo) {
 
 	const determineWinner = function determineWinner() {
 		//TODO: Implement this function
+		let n = boardArr.length;
+		//Check rows
+		for (let row = 0; row < n; row++) {
+			if (
+				boardArr[row][0] != null &&
+				boardArr[row][0] === boardArr[row][1] &&
+				boardArr[row][1] === boardArr[row][2]
+			) {
+				gameOver = true;
+				showWinningMsg();
+				break;
+			} //if
+		} //for()
 	}; //determineWinner()
 
 	//=========================================================================
@@ -143,7 +157,13 @@ function Game(playerOne, playerTwo) {
 
 	//=========================================================================
 
-	return { playRound, displayTurn, changeTurn, showWinningMsg };
+	return {
+		playRound,
+		displayTurn,
+		changeTurn,
+		showWinningMsg,
+		determineWinner,
+	};
 } //Game()
 
 //=========================================================================
