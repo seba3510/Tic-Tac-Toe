@@ -85,8 +85,7 @@ function Game(playerOne, playerTwo) {
 			board.printBoard();
 			determineWinner();
 			console.log(`Is the game over?:  ${gameOver}`);
-			// changeTurn();
-		} // while()
+		} // while
 	}; //playTurn()
 	//=========================================================================
 
@@ -99,7 +98,7 @@ function Game(playerOne, playerTwo) {
 
 		else {
 			const err = "This cell is occupied!";
-			console.error(err);
+			showError(err);
 		} //else
 	}; //addSymbol()
 	//=========================================================================
@@ -113,23 +112,20 @@ function Game(playerOne, playerTwo) {
 
 	const changeTurn = function changeTurn() {
 		//prettier-ignore
-		if(activePlayer === players[0] && gameOver == false){
+		if ((activePlayer === players[0]) &&((gameOver == false))) {
 			activePlayer = players[1];
 			previousPlayer = players[0];
+		} //if
 
-		}//if
-
-		else if(activePlayer === players[1] && gameOver == false){
+		else if ((activePlayer === players[1]) && (gameOver == false)) {
 			activePlayer = players[0];
 			previousPlayer = players[1];
-		}
+		} // else if
 	}; //changeTurn()
 
 	//=========================================================================
 
 	const determineWinner = function determineWinner() {
-		// changeTurn();
-		//TODO: Implement this function
 		checkRows();
 		checkColumns();
 		checkDiagonals();
@@ -138,7 +134,7 @@ function Game(playerOne, playerTwo) {
 	//=========================================================================
 	const checkRows = function checkRows() {
 		let n = boardArr.length;
-		//Check rows
+
 		for (let row = 0; row < n; row++) {
 			//prettier-ignore
 			if (
@@ -155,34 +151,38 @@ function Game(playerOne, playerTwo) {
 	//=========================================================================
 	const checkColumns = function checkColumns() {
 		let n = boardArr.length;
-
+		//prettier-ignore
 		for (let col = 0; col < n; col++) {
 			if (
-				boardArr[0][col] != null &&
-				boardArr[0][col] === boardArr[1][col] &&
-				boardArr[1][col] === boardArr[2][col]
+				(boardArr[0][col] != null) &&
+				(boardArr[0][col] === boardArr[1][col]) &&
+				(boardArr[1][col] === boardArr[2][col])
 			) {
 				gameOver = true;
 				showWinningMsg();
 				break;
 			} //if
-		} //for()
+		} //for
 	}; //checkColumns()
 
 	//=========================================================================
 	const checkDiagonals = function checkDiagonals() {
 		//prettier-ignore
-		if ((boardArr[0][0] != null) &&
+		if (
+			(boardArr[0][0] != null) &&
 			(boardArr[0][0] === boardArr[1][1]) &&
-			(boardArr[1][1] === boardArr[2][2])) {
+			(boardArr[1][1] === boardArr[2][2])
+		) {
 				gameOver = true;
 				showWinningMsg();
 				return;
 				}//if
 	
-				else if((boardArr[2][0] != null)&&
-						(boardArr[2][0] === boardArr[1][1])&&
-						(boardArr[1][1] === boardArr[0][2])){
+				else if(
+					(boardArr[2][0] != null)&&
+					(boardArr[2][0] === boardArr[1][1])&&
+					(boardArr[1][1] === boardArr[0][2])
+					){
 							gameOver = true;
 							showWinningMsg();
 							return;
@@ -203,13 +203,11 @@ function Game(playerOne, playerTwo) {
 
 	//=========================================================================
 
-	return {
-		playRound,
-		displayTurn,
-		changeTurn,
-		showWinningMsg,
-		determineWinner,
-	};
+	const showError = function showError(message) {
+		console.error(message);
+	}; // showError()
+
+	return { playRound };
 } //Game()
 
 //=========================================================================
