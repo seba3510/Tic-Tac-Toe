@@ -1,8 +1,8 @@
 function GameBoard() {
 	const board = [
-		[null, null, null],
-		[null, null, null],
-		[null, null, null],
+		["-", "-", "-"],
+		["-", "-", "-"],
+		["-", "-", "-"],
 	];
 
 	//=========================================================================
@@ -23,7 +23,7 @@ function GameBoard() {
 	const resetBoard = function resetBoard() {
 		for (let row = 0; row < 3; row++) {
 			for (let col = 0; col < 3; col++) {
-				board[row][col] = null;
+				board[row][col] = "-";
 			} //for()
 		} //for()
 	}; //resetBoard()
@@ -91,7 +91,7 @@ function Game(playerOne, playerTwo) {
 
 	const addSymbol = function addSymbol(player, row, column) {
 		//prettier-ignore
-		if ((boardArr[row][column] === null)) {
+		if ((boardArr[row][column] === "-")) {
 			boardArr[row][column] = player.symbol;
 			changeTurn(); 
 		}//if 
@@ -138,7 +138,7 @@ function Game(playerOne, playerTwo) {
 		for (let row = 0; row < n; row++) {
 			//prettier-ignore
 			if (
-				(boardArr[row][0] != null) &&
+				(boardArr[row][0] != "-") &&
 				(boardArr[row][0] === boardArr[row][1]) &&
 				(boardArr[row][1] === boardArr[row][2])
 			) {
@@ -154,7 +154,7 @@ function Game(playerOne, playerTwo) {
 		//prettier-ignore
 		for (let col = 0; col < n; col++) {
 			if (
-				(boardArr[0][col] != null) &&
+				(boardArr[0][col] != "-") &&
 				(boardArr[0][col] === boardArr[1][col]) &&
 				(boardArr[1][col] === boardArr[2][col])
 			) {
@@ -169,7 +169,7 @@ function Game(playerOne, playerTwo) {
 	const checkDiagonals = function checkDiagonals() {
 		//prettier-ignore
 		if (
-			(boardArr[0][0] != null) &&
+			(boardArr[0][0] != "-") &&
 			(boardArr[0][0] === boardArr[1][1]) &&
 			(boardArr[1][1] === boardArr[2][2])
 		) {
@@ -179,7 +179,7 @@ function Game(playerOne, playerTwo) {
 				}//if
 	
 				else if(
-					(boardArr[2][0] != null)&&
+					(boardArr[2][0] != "-")&&
 					(boardArr[2][0] === boardArr[1][1])&&
 					(boardArr[1][1] === boardArr[0][2])
 					){
