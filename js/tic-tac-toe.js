@@ -55,6 +55,8 @@ function Game() {
 	const playerOne = Player("", "X");
 	const playerTwo = Player("", "O");
 
+	let boardSize = 0;
+
 	const players = [
 		{
 			name: playerOne.name,
@@ -88,6 +90,7 @@ function Game() {
 			showPrompt();
 			board.printBoard();
 			determineWinner();
+			console.log(`Is the board full?: ${isBoardFull()}`);
 			console.log(`Is the game over?:  ${gameOver}`);
 		} // while
 	}; //playTurn()
@@ -97,6 +100,7 @@ function Game() {
 		//prettier-ignore
 		if ((boardArr[row][column] === "-")) {
 			boardArr[row][column] = player.symbol;
+			boardSize++;
 			changeTurn(); 
 		}//if 
 
@@ -130,9 +134,15 @@ function Game() {
 	//=========================================================================
 
 	const determineWinner = function determineWinner() {
-		checkRows();
-		checkColumns();
-		checkDiagonals();
+		//prettier-ignore
+		while((isBoardFull != true)){
+			checkRows();
+			checkColumns();
+			checkDiagonals();
+		} //while()
+		gameOver = true;
+		const error = "Neither player wins, because the board is full!";
+		showError(error);
 	}; //determineWinner()
 
 	//=========================================================================
@@ -207,16 +217,24 @@ function Game() {
 
 	//=========================================================================
 
-	const promptNames = function promptNames(playerOne, playerTwo) {
+	const promptNames = function promptNames() {
 		let playerOneName = window.prompt("Player 1, please enter your name");
 		players[0].name = playerOneName;
-		console.log(players);
 
 		let playerTwoName = window.prompt("Player 2, please enter your name");
 		players[1].name = playerTwoName;
-		console.log(playerTwo);
-		console.log(players);
 	}; //promptNames()
+
+	//=========================================================================
+
+	const isBoardFull = function isBoardFull() {
+		let n = boardArr.length;
+
+		if (boardSize === n) {
+			return true;
+		} // if
+		return false;
+	}; //isBoardFull()
 	//=========================================================================
 
 	const showError = function showError(message) {
