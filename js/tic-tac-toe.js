@@ -138,7 +138,7 @@ function Game() {
 			checkColumns();
 			checkDiagonals();
 		} //while()
-		showLosingMsg();
+		showTieMsg();
 	}; //determineWinner()
 
 	//=========================================================================
@@ -206,7 +206,7 @@ function Game() {
 	}; //showWinningMsg()
 	//=========================================================================
 
-	const showLosingMsg = function showLosingMsg() {
+	const showTieMsg = function showTieMsg() {
 		gameOver = true;
 		const error = "Neither player wins, because the board is full!";
 		showError(error);
