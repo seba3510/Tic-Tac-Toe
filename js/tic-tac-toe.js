@@ -48,9 +48,12 @@ function Player(name, symbol) {
 
 //=========================================================================
 
-function Game(playerOne, playerTwo) {
+function Game() {
 	const board = GameBoard();
 	const boardArr = board.getBoard();
+
+	const playerOne = Player("", "X");
+	const playerTwo = Player("", "O");
 
 	const players = [
 		{
@@ -78,6 +81,7 @@ function Game(playerOne, playerTwo) {
 	//=========================================================================
 
 	const playRound = function playRound() {
+		promptNames(playerOne, playerTwo);
 		//prettier-ignore
 		while ((gameOver != true)) {
 			displayTurn();
@@ -203,17 +207,28 @@ function Game(playerOne, playerTwo) {
 
 	//=========================================================================
 
+	const promptNames = function promptNames(playerOne, playerTwo) {
+		let playerOneName = window.prompt("Player 1, please enter your name");
+		players[0].name = playerOneName;
+		console.log(players);
+
+		let playerTwoName = window.prompt("Player 2, please enter your name");
+		players[1].name = playerTwoName;
+		console.log(playerTwo);
+		console.log(players);
+	}; //promptNames()
+	//=========================================================================
+
 	const showError = function showError(message) {
 		console.error(message);
 	}; // showError()
+
+	//=========================================================================
 
 	return { playRound };
 } //Game()
 
 //=========================================================================
 
-const player1 = Player("Sebastian", "X");
-const player2 = Player("John", "O");
-
-const game = Game(player1, player2);
+const game = Game();
 game.playRound();
