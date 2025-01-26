@@ -55,8 +55,6 @@ function Game() {
 	const playerOne = Player("", "X");
 	const playerTwo = Player("", "O");
 
-	let boardSize = 0;
-
 	const players = [
 		{
 			name: playerOne.name,
@@ -140,9 +138,7 @@ function Game() {
 			checkColumns();
 			checkDiagonals();
 		} //while()
-		gameOver = true;
-		const error = "Neither player wins, because the board is full!";
-		showError(error);
+		showLosingMsg();
 	}; //determineWinner()
 
 	//=========================================================================
@@ -208,6 +204,13 @@ function Game() {
 		const msg = `${previousPlayer.name} wins!`;
 		console.log(msg);
 	}; //showWinningMsg()
+	//=========================================================================
+
+	const showLosingMsg = function showLosingMsg() {
+		gameOver = true;
+		const error = "Neither player wins, because the board is full!";
+		showError(error);
+	}; // showLosingMsg()
 	//=========================================================================
 
 	const displayTurn = function displayTurn() {
