@@ -84,7 +84,7 @@ function Game() {
 
 	const playRound = function playRound() {
 		board.numSymbols = 0;
-		promptNames(playerOne, playerTwo);
+		promptNames();
 		//prettier-ignore
 		while ((gameOver != true)) {
 			console.log(`Number of Symbols: ${board.numSymbols}`);
@@ -222,10 +222,10 @@ function Game() {
 	//=========================================================================
 
 	const promptNames = function promptNames() {
-		let playerOneName = window.prompt("Player 1, please enter your name");
+		const playerOneName = window.prompt("Player 1, please enter your name");
 		players[0].name = playerOneName;
 
-		let playerTwoName = window.prompt("Player 2, please enter your name");
+		const playerTwoName = window.prompt("Player 2, please enter your name");
 		players[1].name = playerTwoName;
 	}; //promptNames()
 
