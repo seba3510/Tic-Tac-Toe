@@ -5,6 +5,8 @@ function GameBoard() {
 		["-", "-", "-"],
 	];
 
+	let numSymbols = 0;
+
 	//=========================================================================
 
 	const printBoard = function printBoard() {
@@ -36,7 +38,7 @@ function GameBoard() {
 
 	//=========================================================================
 
-	return { printBoard, resetBoard, getBoard };
+	return { printBoard, resetBoard, getBoard, numSymbols };
 } //GameBoard()
 
 //=========================================================================
@@ -81,16 +83,18 @@ function Game() {
 	//=========================================================================
 
 	const playRound = function playRound() {
+		board.numSymbols = 0;
 		promptNames(playerOne, playerTwo);
 		//prettier-ignore
 		while ((gameOver != true)) {
+			console.log(`Number of Symbols: ${board.numSymbols}`);
+			console.log(`Is the game over?:  ${gameOver}`);
 			displayTurn();
 			showPrompt();
 			board.printBoard();
 			determineWinner();
-			console.log(`Is the board full?: ${isBoardFull()}`);
-			console.log(`Is the game over?:  ${gameOver}`);
 		} // while
+		board.resetBoard();
 	}; //playTurn()
 	//=========================================================================
 
@@ -98,8 +102,8 @@ function Game() {
 		//prettier-ignore
 		if ((boardArr[row][column] === "-")) {
 			boardArr[row][column] = player.symbol;
-			boardSize++;
-			changeTurn(); 
+			board.numSymbols++;
+			changeTurn();
 		}//if 
 
 		else {
@@ -118,7 +122,7 @@ function Game() {
 
 	const changeTurn = function changeTurn() {
 		//prettier-ignore
-		if ((activePlayer === players[0]) &&((gameOver == false))) {
+		if ((activePlayer === players[0]) && ((gameOver == false))) {
 			activePlayer = players[1];
 			previousPlayer = players[0];
 		} //if
@@ -132,13 +136,10 @@ function Game() {
 	//=========================================================================
 
 	const determineWinner = function determineWinner() {
-		//prettier-ignore
-		while((isBoardFull != true)){
-			checkRows();
-			checkColumns();
-			checkDiagonals();
-		} //while()
-		showTieMsg();
+		checkRows();
+		checkColumns();
+		checkDiagonals();
+		checkTie();
 	}; //determineWinner()
 
 	//=========================================================================
@@ -183,20 +184,20 @@ function Game() {
 			(boardArr[0][0] === boardArr[1][1]) &&
 			(boardArr[1][1] === boardArr[2][2])
 		) {
-				gameOver = true;
-				showWinningMsg();
-				return;
-				}//if
-	
-				else if(
-					(boardArr[2][0] != "-")&&
-					(boardArr[2][0] === boardArr[1][1])&&
-					(boardArr[1][1] === boardArr[0][2])
-					){
-							gameOver = true;
-							showWinningMsg();
-							return;
-				} //else if
+			gameOver = true;
+			showWinningMsg();
+			return;
+		}//if
+
+		else if (
+			(boardArr[2][0] != "-") &&
+			(boardArr[2][0] === boardArr[1][1]) &&
+			(boardArr[1][1] === boardArr[0][2])
+		) {
+			gameOver = true;
+			showWinningMsg();
+			return;
+		} //else if
 	}; //checkDiagonals()
 	//=========================================================================
 
@@ -230,14 +231,13 @@ function Game() {
 
 	//=========================================================================
 
-	const isBoardFull = function isBoardFull() {
-		let n = boardArr.length;
-
-		if (boardSize === n) {
-			return true;
+	const checkTie = function checkTie() {
+		//prettier-ignore
+		if ((board.numSymbols === 9)){
+			showTieMsg();
 		} // if
-		return false;
-	}; //isBoardFull()
+		return;
+	}; //checkTie()
 	//=========================================================================
 
 	const showError = function showError(message) {
