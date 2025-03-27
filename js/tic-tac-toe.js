@@ -26,8 +26,8 @@ function GameBoard() {
 		for (let row = 0; row < 3; row++) {
 			for (let col = 0; col < 3; col++) {
 				board[row][col] = "-";
-			} //for()
-		} //for()
+			} //for
+		} //for
 	}; //resetBoard()
 
 	//=========================================================================
@@ -38,24 +38,37 @@ function GameBoard() {
 
 	//=========================================================================
 
-	return { printBoard, resetBoard, getBoard, numSymbols };
+	return;
+	{
+		printBoard, resetBoard, getBoard, numSymbols;
+	}
 } //GameBoard()
 
 //=========================================================================
 function Player(name, symbol) {
 	this.name = name;
 	this.symbol = symbol;
-	return { name, symbol };
+	return;
+	{
+		name, symbol;
+	}
 } //Player()
 
 //=========================================================================
 
 function Game() {
-	const board = GameBoard();
-	const boardArr = board.getBoard();
 
-	const playerOne = Player("", "X");
-	const playerTwo = Player("", "O");
+	const board = 
+		GameBoard();
+
+	const boardArr = 
+		board.getBoard();
+
+	const playerOne = 
+		Player("", "X");
+
+	const playerTwo = 
+		Player("", "O");
 
 	const players = [
 		{
@@ -69,124 +82,218 @@ function Game() {
 		},
 	];
 
-	let activePlayer = players[0];
+	let activePlayer = 
+		players[0];
+	
 	let previousPlayer;
 
 	let gameOver = false;
 
 	//=========================================================================
 
-	const getActivePlayer = function getActivePlayer() {
-		return activePlayer;
+	const getActivePlayer = 
+		function getActivePlayer() {
+
+			return activePlayer;
+
 	}; //getActivePlayer()
 
 	//=========================================================================
 
-	const playRound = function playRound() {
-		board.numSymbols = 0;
-		promptNames();
-		//prettier-ignore
-		while ((gameOver != true)) {
-			console.log(`Number of Symbols: ${board.numSymbols}`);
-			console.log(`Is the game over?:  ${gameOver}`);
-			displayTurn();
-			showPrompt();
-			board.printBoard();
-			determineWinner();
-		} // while
-		board.resetBoard();
+	const playRound = 
+		function playRound() {
+
+			board.numSymbols = 0;
+
+			promptNames();
+			
+			while (!gameOver) {
+
+				console.log(`Number of Symbols: ${board.numSymbols}`);
+
+				console.log(`Is the game over?:  ${gameOver}`);
+
+				displayTurn();
+
+				showPrompt();
+
+				board.printBoard();
+
+				determineWinner();
+
+			} // while
+			
+
+			board.resetBoard();
+
 	}; //playTurn()
 	//=========================================================================
 
-	const addSymbol = function addSymbol(player, row, column) {
-		//prettier-ignore
-		if ((boardArr[row][column] === "-")) {
-			boardArr[row][column] = player.symbol;
-			board.numSymbols++;
-			changeTurn();
-		}//if 
+	const addSymbol =
+		function addSymbol(player, row, column) {
+			
+			let isCellEmpty =
+				boardArr[row][column]
+					== "-";
 
-		else {
-			const err = "This cell is occupied!";
-			showError(err);
-		} //else
+			if (isCellEmpty) {
+				
+				boardArr[row][column] 
+					= player.symbol;
+
+				board.numSymbols++;
+
+				changeTurn();
+				
+			}//if 
+
+			else {
+
+				const err = 
+					"This cell is occupied!";
+
+				showError(err);
+
+			} //else
+
 	}; //addSymbol()
 	//=========================================================================
 
-	const showPrompt = function showPrompt() {
-		let row = window.prompt("Enter the row: ");
-		let column = window.prompt("Enter the column");
-		addSymbol(activePlayer, row, column);
+	const showPrompt = 
+		function showPrompt() {
+
+			let row = 
+				window.prompt("Enter the row: ");
+
+			let column = 
+				window.prompt("Enter the column");
+
+			addSymbol
+			(
+				activePlayer, 
+				row, 
+				column
+			);
+
 	}; //showPrompt()
 	//=========================================================================
 
-	const changeTurn = function changeTurn() {
-		//prettier-ignore
-		if ((activePlayer === players[0]) && ((gameOver == false))) {
-			activePlayer = players[1];
-			previousPlayer = players[0];
+	const changeTurn = 
+		function changeTurn() {
+		
+			let isPlayerOneTurn  =
+			(activePlayer == players[0]) &&
+			(!gameOver);
+
+			let isPlayerTwoTurn  =
+			(activePlayer == players[1]) &&
+			(!gameOver);
+
+		if (isPlayerOneTurn) {
+
+			activePlayer = 
+				players[1];
+
+			previousPlayer = 
+				players[0];
+
 		} //if
 
-		else if ((activePlayer === players[1]) && (gameOver == false)) {
-			activePlayer = players[0];
-			previousPlayer = players[1];
+		else if (isPlayerTwoTurn) {
+
+			activePlayer = 
+				players[0];
+
+			previousPlayer = 
+				players[1];
+
 		} // else if
+
 	}; //changeTurn()
 
 	//=========================================================================
 
-	const determineWinner = function determineWinner() {
-		checkRows();
-		checkColumns();
-		checkDiagonals();
-		checkTie();
+	const determineWinner = 
+		function determineWinner() {
+			
+			checkRows();
+
+			checkColumns();
+
+			checkDiagonals();
+
+			checkTie();
+
 	}; //determineWinner()
 
 	//=========================================================================
-	const checkRows = function checkRows() {
-		let n = boardArr.length;
+
+const checkRows = 
+	function checkRows() {
+
+		let n =
+			boardArr.length;
 
 		for (let row = 0; row < n; row++) {
-			//prettier-ignore
+
 			if (
 				(boardArr[row][0] != "-") &&
 				(boardArr[row][0] === boardArr[row][1]) &&
 				(boardArr[row][1] === boardArr[row][2])
 			) {
+			
 				gameOver = true;
+
 				showWinningMsg();
+
 				break;
+
 			} //if
-		} //for()
+
+		} //for
+
 	}; //checkRows()
 	//=========================================================================
 	const checkColumns = function checkColumns() {
-		let n = boardArr.length;
-		//prettier-ignore
+		
+		let n = 
+			boardArr.length;
+
 		for (let col = 0; col < n; col++) {
+
 			if (
 				(boardArr[0][col] != "-") &&
 				(boardArr[0][col] === boardArr[1][col]) &&
 				(boardArr[1][col] === boardArr[2][col])
 			) {
 				gameOver = true;
+
 				showWinningMsg();
+
 				break;
+
 			} //if
+
 		} //for
+
 	}; //checkColumns()
 
 	//=========================================================================
-	const checkDiagonals = function checkDiagonals() {
-		//prettier-ignore
+	const checkDiagonals = 
+		function checkDiagonals() {
+
 		if (
 			(boardArr[0][0] != "-") &&
 			(boardArr[0][0] === boardArr[1][1]) &&
 			(boardArr[1][1] === boardArr[2][2])
 		) {
+
 			gameOver = true;
+
 			showWinningMsg();
+
 			return;
+
 		}//if
 
 		else if (
@@ -194,54 +301,96 @@ function Game() {
 			(boardArr[2][0] === boardArr[1][1]) &&
 			(boardArr[1][1] === boardArr[0][2])
 		) {
+
 			gameOver = true;
+
 			showWinningMsg();
+
 			return;
+
 		} //else if
+
 	}; //checkDiagonals()
 	//=========================================================================
 
-	const showWinningMsg = function showWinningMsg() {
-		const msg = `${previousPlayer.name} wins!`;
-		console.log(msg);
+	const showWinningMsg = 
+		function showWinningMsg() {
+			
+			const msg = 
+				`${previousPlayer.name} wins!`;
+
+			console.log(msg);
+
 	}; //showWinningMsg()
 	//=========================================================================
 
-	const showTieMsg = function showTieMsg() {
+	const showTieMsg = 
+		function showTieMsg() {
+
 		gameOver = true;
-		const error = "Neither player wins, because the board is full!";
+
+		const error = 
+			"Neither player wins, because the board is full!";
+
 		showError(error);
+
 	}; // showLosingMsg()
 	//=========================================================================
 
-	const displayTurn = function displayTurn() {
-		const msg = `${getActivePlayer().name}'s turn`;
-		console.log(msg);
+	const displayTurn = 
+		function displayTurn() {
+			
+			const msg = 
+				`${getActivePlayer().name}'s turn`;
+
+			console.log(msg);
+
 	}; //displayTurn()
 
 	//=========================================================================
 
-	const promptNames = function promptNames() {
-		const playerOneName = window.prompt("Player 1, please enter your name");
-		players[0].name = playerOneName;
+	const promptNames = 
+		function promptNames() {
 
-		const playerTwoName = window.prompt("Player 2, please enter your name");
-		players[1].name = playerTwoName;
+		const playerOneName = 
+			window.prompt("Player 1, please enter your name");
+		
+			players[0].name = 
+				playerOneName;
+
+		const playerTwoName = 
+			window.prompt("Player 2, please enter your name");
+
+		players[1].name = 
+			playerTwoName;
+
 	}; //promptNames()
 
 	//=========================================================================
 
-	const checkTie = function checkTie() {
-		//prettier-ignore
-		if ((board.numSymbols === 9)){
+	const checkTie = 
+		function checkTie() {
+		
+		let isBoardFull =
+			boardArr.numSymbols
+				=== 9;
+
+		if (isBoardFull){
+
 			showTieMsg();
+
 		} // if
+
 		return;
+
 	}; //checkTie()
 	//=========================================================================
 
-	const showError = function showError(message) {
-		console.error(message);
+	const showError = 
+		function showError(message) {
+
+			console.error(message);
+
 	}; // showError()
 
 	//=========================================================================
@@ -251,5 +400,7 @@ function Game() {
 
 //=========================================================================
 
-const game = Game();
+const game = 
+	Game();
+
 game.playRound();
