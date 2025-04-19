@@ -30,18 +30,18 @@ function GameBoard() {
 	const resetBoard = 
 		function resetBoard() {
 
-		for (let row = 0; row < 3; row++) {
+			for (let row = 0; row < 3; row++) {
 
-			for (let col = 0; col < 3; col++) {
+				for (let col = 0; col < 3; col++) {
 
-				board[row][col] 
-					= "-";
+					board[row][col] = 
+						"-";
 
-			} //for
+				} // for
 
-		} //for
+			} // for
 
-	} // resetBoard()
+		} // resetBoard()
 
 	//=========================================================================
 
@@ -50,7 +50,7 @@ function GameBoard() {
 
 			return board;
 
-	} // getBoard()
+		} // getBoard()
 
 	//=========================================================================
 
@@ -63,7 +63,7 @@ function GameBoard() {
 
 	};
 	
-} //GameBoard()
+} // GameBoard()
 
 //=========================================================================
 
@@ -74,8 +74,13 @@ function Player(name, symbol) {
 
 	this.symbol = 
 		symbol;
+		
+	return { 
+		name, 
+		symbol
+	};
 
-} //Player()
+} // Player()
 
 //=========================================================================
 
@@ -110,7 +115,8 @@ function Game() {
 
 	let previousPlayer;
 
-	let gameOver = false;
+	let gameOver = 
+		false;
 
 	//=========================================================================
 
@@ -119,7 +125,7 @@ function Game() {
 
 			return activePlayer;
 
-	} //getActivePlayer()
+		} //getActivePlayer()
 
 	//=========================================================================
 
@@ -148,56 +154,64 @@ function Game() {
 	
 			board.resetBoard();
 
-		} //playTurn()
+		} // playRound()
 
 	//=========================================================================
 
 	const addSymbol = 
-		function addSymbol(player, row, column) {
+		function addSymbol
+			(
+				player, 
+				row, 
+				column
+			) {
 
-			let isCellEmpty = 
-				boardArr[row][column] === "-";
+				let isCellEmpty = 
+					boardArr[row][column]
+						=== "-";
 
-			if (isCellEmpty) {
+				if (isCellEmpty) {
 
-				boardArr[row][column] = 
-					player.symbol;
+					boardArr[row][column] = 
+						player.symbol;
 
-				board.numSymbols++;
+					board.numSymbols++;
 
-				changeTurn();
+					changeTurn();
 
-			} //if
+				} // if
 
-			else {
-		
-				const err = 
-				"This cell is occupied!";
+				else {
+			
+					const err = 
+						"This cell is occupied!";
 
-				showError(err);
+					showError(err);
 
-		} //else
+			} // else
 
-	} // addSymbol()
+		} // addSymbol()
+
 	//=========================================================================
 
 	const showPrompt = 
 		function showPrompt() {
 
-			let row = 
-				window.prompt("Enter the row");
+				let row = 
+					window.prompt("Enter the row");
 
-			let column = 
-				window.prompt("Enter the column");
+				let column = 
+					window.prompt("Enter the column");
 
-			addSymbol
-				(
-					activePlayer, 
-					row, 
-					column
-				);
+				addSymbol
+					(
+						activePlayer, 
+						row, 
+						column
+					);
 
-	}; //showPrompt()
+		} // showPrompt()
+	
 	//=========================================================================
 
 	const changeTurn = 
@@ -205,10 +219,6 @@ function Game() {
 
 			let isPlayerOneTurn = 
 				(activePlayer === players[0]) 
-					&& !gameOver;
-
-			let isPlayerTwoTurn = 
-				(activePlayer === players[1]) 
 					&& !gameOver;
 
 			if (isPlayerOneTurn) {
@@ -221,7 +231,7 @@ function Game() {
 
 				} //if
 
-			else if (isPlayerTwoTurn) {
+			else {
 
 				activePlayer = 
 					players[0];
@@ -229,9 +239,9 @@ function Game() {
 				previousPlayer = 
 					players[1];
 
-			} // else if
+			} // else
 
-	} // changeTurn()
+		} // changeTurn()
 
 	//=========================================================================
 
@@ -264,13 +274,14 @@ function Game() {
 					(boardArr[row][1] === boardArr[row][2])
 					) {
 
-					gameOver = true;
+					gameOver = 
+						true;
 
 					showWinningMsg();
 
 					break;
 
-				} //if
+				} // if
 				
 			} //for
 
@@ -298,9 +309,9 @@ function Game() {
 
 					break;
 
-				} //if
+				} // if
 
-			} //for
+			} // for
 
 		} // checkColumns()
 
@@ -309,74 +320,75 @@ function Game() {
 	const checkDiagonals = 
 		function checkDiagonals() {
 
-			if (
-				(boardArr[0][0] != "-") &&
-				(boardArr[0][0] === boardArr[1][1]) &&
-				(boardArr[1][1] === boardArr[2][2])
-				) {
+				if (
+					(boardArr[0][0] != "-") &&
+					(boardArr[0][0] === boardArr[1][1]) &&
+					(boardArr[1][1] === boardArr[2][2])
+					) {
 
-				gameOver = true;
+					gameOver = true;
 
-				showWinningMsg();
+					showWinningMsg();
 
-				return;
+					return;
 
-			} //if
+				} // if
 
-			else if 
-				(
-					(boardArr[2][0] != "-") &&
-					(boardArr[2][0] === boardArr[1][1]) &&
-					(boardArr[1][1] === boardArr[0][2])
-				) {
+				else if 
+					(
+						(boardArr[2][0] != "-") &&
+						(boardArr[2][0] === boardArr[1][1]) &&
+						(boardArr[1][1] === boardArr[0][2])
+					) {
 
-				gameOver = true;
+					gameOver = true;
 
-				showWinningMsg();
+					showWinningMsg();
 
-				return;
+					return;
 
-			} //else if
+				} // else if
 
-	} // checkDiagonals()
+		} // checkDiagonals()
 
 	//=========================================================================
 
 	const showWinningMsg = 
 		function showWinningMsg() {
 		
-			const msg = 
-				`${previousPlayer.name} wins!`;
+				const msg = 
+					`${previousPlayer.name} wins!`;
 
-			console.log(msg);
+				console.log(msg);
 
-	} // showWinningMsg()
+		} // showWinningMsg()
 	
 	//=========================================================================
 
 	const showTieMsg = 
 		function showTieMsg() {
 		
-			gameOver = true;
+				gameOver = 
+					true;
 
-			const error = 
-				"Neither player wins, because the board is full!";
+				const error = 
+					"Neither player wins, because the board is full!";
 
-			showError(error);
+				showError(error);
 
-	} // showTieMsg()
+		} // showTieMsg()
 
 	//=========================================================================
 
 	const displayTurn = 
 		function displayTurn() {
 			
-			const msg = 
-			`${getActivePlayer().name}'s turn`;
+				const msg = 
+				`${getActivePlayer().name}'s turn`;
 
-			console.log(msg);
+				console.log(msg);
 
-	} // displayTurn()
+		} // displayTurn()
 
 	//=========================================================================
 
@@ -412,8 +424,6 @@ function Game() {
 
 			} // if
 
-			return;
-
 		} // checkTie()
 	//=========================================================================
 
@@ -422,11 +432,11 @@ function Game() {
 
 			console.error(message);
 
-		}; // showError()
+		} // showError()
 
 	//=========================================================================
 
-	return playRound;
+	return { playRound };
 
 } //Game()
 
