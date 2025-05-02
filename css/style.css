@@ -1,33 +1,46 @@
 header {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
 }
+
+/********************************************************************/
 
 #grid-container {
-    display: grid;
-    grid-template-rows: repeat(3, 250px);
-    grid-template-columns: repeat(3, 0.2fr);
-    justify-content: center;
-    margin-top: 8em;
+	display: grid;
+	grid-template-rows: repeat(3, 250px);
+	grid-template-columns: repeat(3, 0.2fr);
+	justify-content: center;
+	margin-top: 8em;
+	border: none;
 }
 
-#grid-container>div {
-    border-left: 1px solid red;
-    border-right: 1px solid red;
-    text-align: center;
-    padding-top: 8em;
+/********************************************************************/
+
+#grid-container > div {
+	border-left: 1px solid red;
+	border-right: 1px solid red;
+	text-align: center;
+	padding-top: 8em;
 }
 
-#grid-container>div:nth-child(1n + 4) {
-    border-top: 1px solid red;
-    border-bottom: none;
+/********************************************************************/
+
+#grid-container > div:nth-child(1n + 4) {
+	border-top: 1px solid red;
+	border-bottom: none;
 }
 
-#grid-container>div:nth-child(1n + 3) {
-    border-right: none;
+/********************************************************************/
+
+#grid-container > div:nth-child(1n + 3) {
+	border-right: none;
 }
 
-#grid-container>div:nth-child(3n - 2) {
-    border-left: none;
+/********************************************************************/
+
+#grid-container > div:nth-child(3n - 2) {
+	border-left: none;
 }
+
+/********************************************************************/
