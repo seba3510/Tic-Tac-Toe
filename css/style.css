@@ -8,9 +8,17 @@ header {
     display: grid;
     grid-template-rows: repeat(3, 250px);
     grid-template-columns: repeat(3, 0.5fr);
-    border: 1px solid black;
+    margin-top: 8em;
 }
 
 #grid-container>div {
-    border: 1px solid black;
+    border-left: 1px solid red;
+    border-right: 1px solid red;
+    text-align: center;
+    padding-top: 8em;
+}
+
+#grid-container>div:nth-child(1n + 4) {
+    border-top: 1px solid red;
+    border-bottom: none;
 }
