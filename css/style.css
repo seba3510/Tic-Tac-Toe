@@ -44,3 +44,15 @@ header {
 }
 
 /********************************************************************/
+
+#btns-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	margin-top: 8rem;
+}
+
+#start-game-btn,
+#restart-game-btn {
+	cursor: pointer;
+}

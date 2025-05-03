@@ -1,27 +1,27 @@
 function GameBoard() {
 
-	const board = 
-	[
-		["-", "-", "-"],
-		["-", "-", "-"],
-		["-", "-", "-"],
-	];
+	const board =
+		[
+			["-", "-", "-"],
+			["-", "-", "-"],
+			["-", "-", "-"],
+		];
 
 	let numSymbols = 0;
 
+	const gridContainer =
+		document.querySelector("#grid-container");
+
 	//=========================================================================
 
-	const printBoard = 
-		function printBoard() {
-
-			const gridContainer =
-				document.querySelector("#grid-container");
+	const displayBoard =
+		function displayBoard() {
 
 			const n = 3;
 
-			for(let row = 0; row < n; row++){
+			for (let row = 0; row < n; row++) {
 
-				for(let col = 0; col < n; col++){
+				for (let col = 0; col < n; col++) {
 
 					const div =
 						document.createElement("div");
@@ -34,18 +34,18 @@ function GameBoard() {
 
 			} // for
 
-	} // printBoard()
+		} // displayBoard()
 
 	//=========================================================================
 
-	const resetBoard = 
+	const resetBoard =
 		function resetBoard() {
 
 			for (let row = 0; row < 3; row++) {
 
 				for (let col = 0; col < 3; col++) {
 
-					board[row][col] = 
+					board[row][col] =
 						"-";
 
 				} // for
@@ -56,7 +56,7 @@ function GameBoard() {
 
 	//=========================================================================
 
-	const getBoard = 
+	const getBoard =
 		function getBoard() {
 
 			return board;
@@ -67,27 +67,27 @@ function GameBoard() {
 
 	return {
 
-		printBoard,
+		displayBoard,
 		resetBoard,
 		getBoard,
-		numSymbols
-
+		numSymbols,
+		gridContainer
 	};
-	
+
 } // GameBoard()
 
 //=========================================================================
 
 function Player(name, symbol) {
 
-	this.name = 
+	this.name =
 		name;
 
-	this.symbol = 
+	this.symbol =
 		symbol;
-		
-	return { 
-		name, 
+
+	return {
+		name,
 		symbol
 	};
 
@@ -97,16 +97,19 @@ function Player(name, symbol) {
 
 function Game() {
 
-	const board = 
+	const board =
 		GameBoard();
 
-	const boardArr = 
+	const boardArr =
 		board.getBoard();
 
-	const playerOne = 
+	const boardContainer =
+		board.gridContainer;
+
+	const playerOne =
 		Player("", "X");
 
-	const playerTwo = 
+	const playerTwo =
 		Player("", "O");
 
 	const players = [
@@ -121,17 +124,17 @@ function Game() {
 		},
 	];
 
-	let activePlayer = 
+	let activePlayer =
 		players[0];
 
 	let previousPlayer;
 
-	let gameOver = 
+	let gameOver =
 		false;
 
 	//=========================================================================
 
-	const getActivePlayer = 
+	const getActivePlayer =
 		function getActivePlayer() {
 
 			return activePlayer;
@@ -140,7 +143,7 @@ function Game() {
 
 	//=========================================================================
 
-	const playRound = 
+	const playRound =
 		function playRound() {
 
 			board.numSymbols = 0;
@@ -148,7 +151,7 @@ function Game() {
 			promptNames();
 
 			while (!gameOver) {
-			
+
 				console.log(`Number of Symbols: ${board.numSymbols}`);
 
 				console.log(`Is the game over?:  ${gameOver}`);
@@ -162,42 +165,42 @@ function Game() {
 				determineWinner();
 
 			} // while
-	
+
 			board.resetBoard();
 
 		} // playRound()
 
 	//=========================================================================
 
-	const addSymbol = 
+	const addSymbol =
 		function addSymbol
 			(
-				player, 
-				row, 
+				player,
+				row,
 				column
 			) {
 
-				let isCellEmpty = 
-					boardArr[row][column]
-						=== "-";
+			let isCellEmpty =
+				boardArr[row][column]
+				=== "-";
 
-				if (isCellEmpty) {
+			if (isCellEmpty) {
 
-					boardArr[row][column] = 
-						player.symbol;
+				boardArr[row][column] =
+					player.symbol;
 
-					board.numSymbols++;
+				board.numSymbols++;
 
-					changeTurn();
+				changeTurn();
 
-				} // if
+			} // if
 
-				else {
-			
-					const err = 
-						"This cell is occupied!";
+			else {
 
-					showError(err);
+				const err =
+					"This cell is occupied!";
+
+				showError(err);
 
 			} // else
 
@@ -205,49 +208,49 @@ function Game() {
 
 	//=========================================================================
 
-	const showPrompt = 
+	const showPrompt =
 		function showPrompt() {
 
-				let row = 
-					window.prompt("Enter the row");
+			let row =
+				window.prompt("Enter the row");
 
-				let column = 
-					window.prompt("Enter the column");
+			let column =
+				window.prompt("Enter the column");
 
-				addSymbol
-					(
-						activePlayer, 
-						row, 
-						column
-					);
+			addSymbol
+				(
+					activePlayer,
+					row,
+					column
+				);
 
 		} // showPrompt()
-	
+
 	//=========================================================================
 
-	const changeTurn = 
+	const changeTurn =
 		function changeTurn() {
 
-			let isPlayerOneTurn = 
-				(activePlayer === players[0]) 
-					&& !gameOver;
+			let isPlayerOneTurn =
+				(activePlayer === players[0])
+				&& !gameOver;
 
 			if (isPlayerOneTurn) {
 
-				activePlayer = 
+				activePlayer =
 					players[1];
 
-					previousPlayer = 
-						players[0];
+				previousPlayer =
+					players[0];
 
-				} //if
+			} //if
 
 			else {
 
-				activePlayer = 
+				activePlayer =
 					players[0];
 
-				previousPlayer = 
+				previousPlayer =
 					players[1];
 
 			} // else
@@ -256,7 +259,7 @@ function Game() {
 
 	//=========================================================================
 
-	const determineWinner = 
+	const determineWinner =
 		function determineWinner() {
 
 			checkRows();
@@ -271,10 +274,10 @@ function Game() {
 
 	//=========================================================================
 
-	const checkRows = 
+	const checkRows =
 		function checkRows() {
 
-			const n = 
+			const n =
 				boardArr.length;
 
 			for (let row = 0; row < n; row++) {
@@ -283,9 +286,9 @@ function Game() {
 					(boardArr[row][0] != "-") &&
 					(boardArr[row][0] === boardArr[row][1]) &&
 					(boardArr[row][1] === boardArr[row][2])
-					) {
+				) {
 
-					gameOver = 
+					gameOver =
 						true;
 
 					showWinningMsg();
@@ -293,17 +296,17 @@ function Game() {
 					break;
 
 				} // if
-				
+
 			} //for
 
 		} // checkRows()
 
 	//=========================================================================
 
-	const checkColumns = 
+	const checkColumns =
 		function checkColumns() {
 
-			const n = 
+			const n =
 				boardArr.length;
 
 			for (let col = 0; col < n; col++) {
@@ -312,7 +315,7 @@ function Game() {
 					(boardArr[0][col] != "-") &&
 					(boardArr[0][col] === boardArr[1][col]) &&
 					(boardArr[1][col] === boardArr[2][col])
-					) {
+				) {
 
 					gameOver = true;
 
@@ -328,106 +331,106 @@ function Game() {
 
 	//=========================================================================
 
-	const checkDiagonals = 
+	const checkDiagonals =
 		function checkDiagonals() {
 
-				if (
-					(boardArr[0][0] != "-") &&
-					(boardArr[0][0] === boardArr[1][1]) &&
-					(boardArr[1][1] === boardArr[2][2])
-					) {
+			if (
+				(boardArr[0][0] != "-") &&
+				(boardArr[0][0] === boardArr[1][1]) &&
+				(boardArr[1][1] === boardArr[2][2])
+			) {
 
-					gameOver = true;
+				gameOver = true;
 
-					showWinningMsg();
+				showWinningMsg();
 
-					return;
+				return;
 
-				} // if
+			} // if
 
-				else if 
-					(
-						(boardArr[2][0] != "-") &&
-						(boardArr[2][0] === boardArr[1][1]) &&
-						(boardArr[1][1] === boardArr[0][2])
-					) {
+			else if
+				(
+				(boardArr[2][0] != "-") &&
+				(boardArr[2][0] === boardArr[1][1]) &&
+				(boardArr[1][1] === boardArr[0][2])
+			) {
 
-					gameOver = true;
+				gameOver = true;
 
-					showWinningMsg();
+				showWinningMsg();
 
-					return;
+				return;
 
-				} // else if
+			} // else if
 
 		} // checkDiagonals()
 
 	//=========================================================================
 
-	const showWinningMsg = 
+	const showWinningMsg =
 		function showWinningMsg() {
-		
-				const msg = 
-					`${previousPlayer.name} wins!`;
 
-				console.log(msg);
+			const msg =
+				`${previousPlayer.name} wins!`;
+
+			console.log(msg);
 
 		} // showWinningMsg()
-	
+
 	//=========================================================================
 
-	const showTieMsg = 
+	const showTieMsg =
 		function showTieMsg() {
-		
-				gameOver = 
-					true;
 
-				const error = 
-					"Neither player wins, because the board is full!";
+			gameOver =
+				true;
 
-				showError(error);
+			const error =
+				"Neither player wins, because the board is full!";
+
+			showError(error);
 
 		} // showTieMsg()
 
 	//=========================================================================
 
-	const displayTurn = 
+	const displayTurn =
 		function displayTurn() {
-			
-				const msg = 
+
+			const msg =
 				`${getActivePlayer().name}'s turn`;
 
-				console.log(msg);
+			console.log(msg);
 
 		} // displayTurn()
 
 	//=========================================================================
 
-	const promptNames = 
+	const promptNames =
 		function promptNames() {
 
-			const playerOneName = 
+			const playerOneName =
 				window.prompt("Player 1, please enter your name");
 
-			players[0].name = 
+			players[0].name =
 				playerOneName;
 
-			const playerTwoName = 
+			const playerTwoName =
 				window.prompt("Player 2, please enter your name");
 
-			players[1].name = 
+			players[1].name =
 				playerTwoName;
 
 		} // promptNames()
 
 	//=========================================================================
 
-	const checkTie = 
+	const checkTie =
 		function checkTie() {
 
-			const isBoardFull = 
-				boardArr.numSymbols 
-					=== 9;
+			const isBoardFull =
+				boardArr.numSymbols
+				=== 9;
 
 			if (isBoardFull) {
 
@@ -438,7 +441,7 @@ function Game() {
 		} // checkTie()
 	//=========================================================================
 
-	const showError = 
+	const showError =
 		function showError(message) {
 
 			console.error(message);
@@ -456,4 +459,4 @@ function Game() {
 const board =
 	GameBoard();
 
-board.printBoard();	
+board.displayBoard();	
