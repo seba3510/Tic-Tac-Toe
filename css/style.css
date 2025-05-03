@@ -22,6 +22,7 @@ header {
 	border-right: 1px solid red;
 	text-align: center;
 	padding-top: 8em;
+	text-align: center;
 }
 
 /********************************************************************/
@@ -45,14 +46,33 @@ header {
 
 /********************************************************************/
 
-#btns-container {
+.btns-container {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-evenly;
 	margin-top: 8rem;
 }
 
-#start-game-btn,
-#restart-game-btn {
+/********************************************************************/
+
+button {
 	cursor: pointer;
+}
+
+/********************************************************************/
+
+.form-control {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	margin-top: 1rem;
+}
+
+/********************************************************************/
+
+form > .btns-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	margin-top: 2rem;
 }

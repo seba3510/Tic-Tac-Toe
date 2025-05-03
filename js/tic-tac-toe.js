@@ -9,7 +9,7 @@ function GameBoard() {
 
 	let numSymbols = 0;
 
-	const gridContainer =
+	const gridContainerElem =
 		document.querySelector("#grid-container");
 
 	//=========================================================================
@@ -28,7 +28,7 @@ function GameBoard() {
 
 					div.append(board[row][col]);
 
-					gridContainer.appendChild(div);
+					gridContainerElem.appendChild(div);
 
 				} // for
 
@@ -71,7 +71,7 @@ function GameBoard() {
 		resetBoard,
 		getBoard,
 		numSymbols,
-		gridContainer
+		gridContainer: gridContainerElem
 	};
 
 } // GameBoard()
@@ -103,8 +103,11 @@ function Game() {
 	const boardArr =
 		board.getBoard();
 
-	const boardContainer =
-		board.gridContainer;
+	const dialogBoxElem =
+		document.querySelector("dialog");
+
+	const startGameBtnElem =
+		document.querySelector("#start-game-btn");
 
 	const playerOne =
 		Player("", "X");
@@ -142,6 +145,22 @@ function Game() {
 		} //getActivePlayer()
 
 	//=========================================================================
+
+	const startGameBtnClick =
+		function startGameBtnClick() {
+
+			startGameBtnElem.addEventListener("click", (event) => {
+
+				event.preventDefault();
+
+				dialogBoxElem.showModal();
+
+			});
+
+		} // startGameBtnClick()
+
+	//=========================================================================
+
 
 	const playRound =
 		function playRound() {
@@ -409,17 +428,7 @@ function Game() {
 	const promptNames =
 		function promptNames() {
 
-			const playerOneName =
-				window.prompt("Player 1, please enter your name");
 
-			players[0].name =
-				playerOneName;
-
-			const playerTwoName =
-				window.prompt("Player 2, please enter your name");
-
-			players[1].name =
-				playerTwoName;
 
 		} // promptNames()
 
@@ -450,7 +459,7 @@ function Game() {
 
 	//=========================================================================
 
-	return { playRound };
+	return { startGameBtnClick };
 
 } //Game()
 
@@ -459,4 +468,9 @@ function Game() {
 const board =
 	GameBoard();
 
-board.displayBoard();	
+board.displayBoard();
+
+const game =
+	Game();
+
+game.startGameBtnClick();

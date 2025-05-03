@@ -13,9 +13,37 @@
 			<h1>Tic-Tac-Toe</h1>
 		</header>
 
+		<dialog>
+			<form action="">
+				<h2>Enter your names</h2>
+				<div class="form-control">
+					<label for="player-one-name">Player 1</label>
+					<input
+						type="text"
+						name="player-one-name"
+						id="player-one-input"
+					/>
+				</div>
+
+				<div class="form-control">
+					<label for="player-two-name">Player 2</label>
+					<input
+						type="text"
+						name="player-two-name"
+						id="player-two-input"
+					/>
+				</div>
+
+				<div class="btns-container">
+					<button id="save-names-btn">OK</button>
+					<button id="cancel-btn">Cancel</button>
+				</div>
+			</form>
+		</dialog>
+
 		<div id="grid-container"></div>
 
-		<div id="btns-container">
+		<div class="btns-container">
 			<button id="start-game-btn">Start Game</button>
 
 			<button id="restart-game-btn">Restart Game</button>
