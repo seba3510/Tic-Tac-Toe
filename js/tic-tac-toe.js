@@ -17,6 +17,13 @@ function GameBoard() {
 	const displayBoard =
 		function displayBoard() {
 
+
+			do {
+
+				gridContainerElem.removeChild(gridContainerElem.firstChild);
+
+			} while ((gridContainerElem.firstChild));
+
 			const n = 3;
 
 			for (let row = 0; row < n; row++) {
@@ -71,7 +78,7 @@ function GameBoard() {
 		resetBoard,
 		getBoard,
 		numSymbols,
-		gridContainer: gridContainerElem
+		gridContainerElem
 	};
 
 } // GameBoard()
@@ -155,17 +162,6 @@ function Game() {
 
 	//=========================================================================
 
-	const displayDialogBox =
-		function displayDialogBox() {
-
-			startGameBtnElem.addEventListener("click", () => {
-
-				dialogBoxElem.showModal();
-
-			});
-
-		} // displayDialogBox()
-
 	//=========================================================================
 
 	const closeDialogBox =
@@ -176,36 +172,28 @@ function Game() {
 
 			closeDialogBoxBtn.addEventListener("click", () => {
 
-				dialogBoxElem.close();
 
+				playerOneNameElem.value = "";
+
+				playerTwoNameElem.value = "";
+
+				dialogBoxElem.close();
 			});
 
 		} // closeDialogBox()
-	//=========================================================================
 
-
-
-	const startGameBtnClick =
-		function startGameBtnClick() {
-
-			startGameBtnElem.addEventListener("click", (event) => {
-
-				displayDialogBox();
-
-				promptNames();
-
-				closeDialogBox();
-
-			});
-
-		} // startGameBtnClick()
 
 	//=========================================================================
 
-	const promptNames =
-		function promptNames() {
+	const saveNamesBtnClick =
+		function saveNamesBtnClick() {
 
-			formElem.addEventListener("submit", () => {
+			dialogBoxElem.showModal();
+
+			const saveNamesBtn =
+				document.querySelector("#save-names-btn");
+
+			saveNamesBtn.addEventListener("click", () => {
 
 				const playerOneName =
 					playerOneNameElem.value.trim();
@@ -219,18 +207,39 @@ function Game() {
 				players[1].name =
 					playerTwoName;
 
-				closeDialogBox();
+				dialogBoxElem.close();
 
 				playRound();
 
-			}); // addEventListener()
+				playerOneNameElem.value = "";
 
-		} // promptNames()
+				playerTwoNameElem.value = "";
+
+
+			});
+
+
+
+
+		} // saveNamesBtnClick()
 
 	//=========================================================================
 
+	const startGameBtnClick =
+		function startGameBtnClick() {
 
-	// startGameBtnClick();
+			startGameBtnElem.addEventListener("click", (event) => {
+
+
+				saveNamesBtnClick();
+
+
+			}); // addEventListener()
+
+
+		} // startGameBtnClick()
+
+	//=========================================================================
 
 	const playRound =
 		function playRound() {
@@ -487,16 +496,12 @@ function Game() {
 			const msg =
 				`${getActivePlayer().name}'s turn`;
 
-			const turnsContainer =
-				document.querySelector("#turns-container");
-
 			const para =
-				document.createElement("p");
+				document.querySelector("p");
 
 			para.textContent =
 				msg;
 
-			turnsContainer.appendChild(para);
 
 		} // displayTurn()
 
@@ -537,10 +542,10 @@ function Game() {
 
 //=========================================================================
 
-const board =
-	GameBoard();
+// const board =
+// 	GameBoard();
 
-board.displayBoard();
+// board.displayBoard();
 
 const game =
 	Game();
