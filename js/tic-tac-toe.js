@@ -109,6 +109,15 @@ function Game() {
 	const startGameBtnElem =
 		document.querySelector("#start-game-btn");
 
+	const playerOneNameElem =
+		document.querySelector("#player-one-name");
+
+	const playerTwoNameElem =
+		document.querySelector("#player-two-name");
+
+	const formElem =
+		document.querySelector("form");
+
 	const playerOne =
 		Player("", "X");
 
@@ -146,14 +155,46 @@ function Game() {
 
 	//=========================================================================
 
+	const displayDialogBox =
+		function displayDialogBox() {
+
+			startGameBtnElem.addEventListener("click", () => {
+
+				dialogBoxElem.showModal();
+
+			});
+
+		} // displayDialogBox()
+
+	//=========================================================================
+
+	const closeDialogBox =
+		function closeDialogBox() {
+
+			const closeDialogBoxBtn =
+				document.querySelector("#close-dialog-btn");
+
+			closeDialogBoxBtn.addEventListener("click", () => {
+
+				dialogBoxElem.close();
+
+			});
+
+		} // closeDialogBox()
+	//=========================================================================
+
+
+
 	const startGameBtnClick =
 		function startGameBtnClick() {
 
 			startGameBtnElem.addEventListener("click", (event) => {
 
-				event.preventDefault();
+				displayDialogBox();
 
-				dialogBoxElem.showModal();
+				promptNames();
+
+				closeDialogBox();
 
 			});
 
@@ -161,13 +202,40 @@ function Game() {
 
 	//=========================================================================
 
+	const promptNames =
+		function promptNames() {
+
+			formElem.addEventListener("submit", () => {
+
+				const playerOneName =
+					playerOneNameElem.value.trim();
+
+				players[0].name =
+					playerOneName;
+
+				const playerTwoName =
+					playerTwoNameElem.value.trim();
+
+				players[1].name =
+					playerTwoName;
+
+				closeDialogBox();
+
+				playRound();
+
+			}); // addEventListener()
+
+		} // promptNames()
+
+	//=========================================================================
+
+
+	// startGameBtnClick();
 
 	const playRound =
 		function playRound() {
 
 			board.numSymbols = 0;
-
-			promptNames();
 
 			while (!gameOver) {
 
@@ -179,7 +247,7 @@ function Game() {
 
 				showPrompt();
 
-				board.printBoard();
+				board.displayBoard();
 
 				determineWinner();
 
@@ -419,18 +487,22 @@ function Game() {
 			const msg =
 				`${getActivePlayer().name}'s turn`;
 
-			console.log(msg);
+			const turnsContainer =
+				document.querySelector("#turns-container");
+
+			const para =
+				document.createElement("p");
+
+			para.textContent =
+				msg;
+
+			turnsContainer.appendChild(para);
 
 		} // displayTurn()
 
 	//=========================================================================
 
-	const promptNames =
-		function promptNames() {
 
-
-
-		} // promptNames()
 
 	//=========================================================================
 

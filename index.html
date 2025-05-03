@@ -14,14 +14,14 @@
 		</header>
 
 		<dialog>
-			<form action="" method="dialog
+			<form action="/" method="dialog">
 				<h2>Enter your names</h2>
 				<div class="form-control">
 					<label for="player-one-name">Player 1</label>
 					<input
 						type="text"
 						name="player-one-name"
-						id="player-one-input"
+						id="player-one-name"
 					/>
 				</div>
 
@@ -30,16 +30,18 @@
 					<input
 						type="text"
 						name="player-two-name"
-						id="player-two-input"
+						id="player-two-name"
 					/>
 				</div>
 
 				<div class="btns-container">
 					<button id="save-names-btn">OK</button>
-					<button id="cancel-btn">Cancel</button>
+					<button id="close-dialog-btn">Cancel</button>
 				</div>
 			</form>
 		</dialog>
+
+		<div id="turns-container"></div>
 
 		<div id="grid-container"></div>
 
