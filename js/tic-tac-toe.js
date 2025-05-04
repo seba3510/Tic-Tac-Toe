@@ -17,12 +17,9 @@ function GameBoard() {
 	const displayBoard =
 		function displayBoard() {
 
-
-			do {
-
-				gridContainerElem.removeChild(gridContainerElem.firstChild);
-
-			} while ((gridContainerElem.firstChild));
+			// while (gridContainerElem.firstChild) {
+			// 	gridContainerElem.removeChild(gridContainerElem.firstChild)
+			// }
 
 			const n = 3;
 
@@ -33,7 +30,13 @@ function GameBoard() {
 					const div =
 						document.createElement("div");
 
-					div.append(board[row][col]);
+					const btn =
+						document.createElement("button");
+
+					btn.textContent =
+						board[row][col];
+
+					div.append(btn);
 
 					gridContainerElem.appendChild(div);
 
@@ -78,7 +81,7 @@ function GameBoard() {
 		resetBoard,
 		getBoard,
 		numSymbols,
-		gridContainerElem
+		gridContainerElem: gridContainerElem
 	};
 
 } // GameBoard()
@@ -103,6 +106,7 @@ function Player(name, symbol) {
 //=========================================================================
 
 function Game() {
+
 
 	const board =
 		GameBoard();
@@ -146,12 +150,14 @@ function Game() {
 	let activePlayer =
 		players[0];
 
-	let previousPlayer;
+	let previousPlayer =
+		players[0];
 
 	let gameOver =
 		false;
 
 	//=========================================================================
+
 
 	const getActivePlayer =
 		function getActivePlayer() {
@@ -160,40 +166,21 @@ function Game() {
 
 		} //getActivePlayer()
 
-	//=========================================================================
 
 	//=========================================================================
 
-	const closeDialogBox =
-		function closeDialogBox() {
-
-			const closeDialogBoxBtn =
-				document.querySelector("#close-dialog-btn");
-
-			closeDialogBoxBtn.addEventListener("click", () => {
-
-
-				playerOneNameElem.value = "";
-
-				playerTwoNameElem.value = "";
-
-				dialogBoxElem.close();
-			});
-
-		} // closeDialogBox()
-
-
-	//=========================================================================
 
 	const saveNamesBtnClick =
 		function saveNamesBtnClick() {
 
-			dialogBoxElem.showModal();
 
 			const saveNamesBtn =
 				document.querySelector("#save-names-btn");
 
-			saveNamesBtn.addEventListener("click", () => {
+
+			saveNamesBtn.addEventListener("click", (event) => {
+
+				event.preventDefault();
 
 				const playerOneName =
 					playerOneNameElem.value.trim();
@@ -209,19 +196,22 @@ function Game() {
 
 				dialogBoxElem.close();
 
-				playRound();
-
 				playerOneNameElem.value = "";
 
 				playerTwoNameElem.value = "";
 
 
-			});
+				formElem.submit();
 
+				displayTurn();
 
+			}); // addEventListener()
 
+			// displayTurn();
 
 		} // saveNamesBtnClick()
+
+
 
 	//=========================================================================
 
@@ -230,9 +220,16 @@ function Game() {
 
 			startGameBtnElem.addEventListener("click", (event) => {
 
+				// event.preventDefault();
+
+				dialogBoxElem.showModal();
+
 
 				saveNamesBtnClick();
 
+				// playRound();
+
+				// displayTurn();
 
 			}); // addEventListener()
 
@@ -246,23 +243,8 @@ function Game() {
 
 			board.numSymbols = 0;
 
-			while (!gameOver) {
+			displayTurn();
 
-				console.log(`Number of Symbols: ${board.numSymbols}`);
-
-				console.log(`Is the game over?:  ${gameOver}`);
-
-				displayTurn();
-
-				showPrompt();
-
-				board.displayBoard();
-
-				determineWinner();
-
-			} // while
-
-			board.resetBoard();
 
 		} // playRound()
 
@@ -285,6 +267,12 @@ function Game() {
 				boardArr[row][column] =
 					player.symbol;
 
+				const cell =
+					document.querySelector("#grid-container > div");
+
+				cell.textContent =
+					player.symbol;
+
 				board.numSymbols++;
 
 				changeTurn();
@@ -296,7 +284,7 @@ function Game() {
 				const err =
 					"This cell is occupied!";
 
-				showError(err);
+				alert(err);
 
 			} // else
 
@@ -304,21 +292,46 @@ function Game() {
 
 	//=========================================================================
 
-	const showPrompt =
-		function showPrompt() {
+	const makePlayerMove =
+		function makePlayerMove() {
 
-			let row =
-				window.prompt("Enter the row");
+			let boardRow = 0;
+			let column = 0;
 
-			let column =
-				window.prompt("Enter the column");
+			const n = 3;
 
-			addSymbol
-				(
-					activePlayer,
-					row,
-					column
-				);
+			const cell =
+				document.querySelector("#grid-container > div > button");
+
+			for (let row = 0; row < n; row++) {
+
+				for (let col = 0; col < n; col++) {
+
+					cell.addEventListener("click", () => {
+
+						boardRow =
+							row;
+
+						column =
+							col;
+
+						addSymbol(activePlayer, boardRow, column);
+
+					}); // addEventListener()
+
+					break;
+
+
+				} // for
+
+			} // for
+
+			// addSymbol
+			// 	(
+			// 		activePlayer,
+			// 		row,
+			// 		column
+			// 	);
 
 		} // showPrompt()
 
@@ -493,15 +506,17 @@ function Game() {
 	const displayTurn =
 		function displayTurn() {
 
-			const msg =
-				`${getActivePlayer().name}'s turn`;
+			const activePlayer =
+				getActivePlayer().name;
+
+			const message =
+				`${activePlayer}'s turn`;
 
 			const para =
-				document.querySelector("p");
+				document.querySelector("#turns-container > p");
 
 			para.textContent =
-				msg;
-
+				message;
 
 		} // displayTurn()
 
@@ -542,12 +557,13 @@ function Game() {
 
 //=========================================================================
 
-// const board =
-// 	GameBoard();
+const board =
+	GameBoard();
 
-// board.displayBoard();
+board.displayBoard();
 
 const game =
 	Game();
 
 game.startGameBtnClick();
+
