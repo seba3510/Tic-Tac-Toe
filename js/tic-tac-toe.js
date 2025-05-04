@@ -30,13 +30,17 @@ function GameBoard() {
 					const div =
 						document.createElement("div");
 
-					const btn =
+					const button =
 						document.createElement("button");
 
-					btn.textContent =
+					button.setAttribute("data-row", `${row}`);
+
+					button.setAttribute("data-column", `${col}`);
+
+					button.textContent =
 						board[row][col];
 
-					div.append(btn);
+					div.appendChild(button);
 
 					gridContainerElem.appendChild(div);
 
@@ -76,12 +80,11 @@ function GameBoard() {
 	//=========================================================================
 
 	return {
-
 		displayBoard,
 		resetBoard,
 		getBoard,
 		numSymbols,
-		gridContainerElem: gridContainerElem
+		gridContainerElem
 	};
 
 } // GameBoard()
@@ -106,7 +109,6 @@ function Player(name, symbol) {
 //=========================================================================
 
 function Game() {
-
 
 	const board =
 		GameBoard();
@@ -173,10 +175,8 @@ function Game() {
 	const saveNamesBtnClick =
 		function saveNamesBtnClick() {
 
-
 			const saveNamesBtn =
 				document.querySelector("#save-names-btn");
-
 
 			saveNamesBtn.addEventListener("click", (event) => {
 
@@ -200,14 +200,14 @@ function Game() {
 
 				playerTwoNameElem.value = "";
 
-
 				formElem.submit();
 
-				displayTurn();
+				// displayTurn();
+
+				playRound();
 
 			}); // addEventListener()
 
-			// displayTurn();
 
 		} // saveNamesBtnClick()
 
@@ -241,9 +241,21 @@ function Game() {
 	const playRound =
 		function playRound() {
 
+
 			board.numSymbols = 0;
 
 			displayTurn();
+
+			makePlayerMove();
+
+			// while (!gameOver) {
+
+			// 	displayTurn();
+
+			// 	makePlayerMove();
+
+			// 	board.displayBoard();
+			// } // while
 
 
 		} // playRound()
@@ -253,6 +265,7 @@ function Game() {
 	const addSymbol =
 		function addSymbol
 			(
+				cell,
 				player,
 				row,
 				column
@@ -266,9 +279,6 @@ function Game() {
 
 				boardArr[row][column] =
 					player.symbol;
-
-				const cell =
-					document.querySelector("#grid-container > div");
 
 				cell.textContent =
 					player.symbol;
@@ -295,45 +305,42 @@ function Game() {
 	const makePlayerMove =
 		function makePlayerMove() {
 
-			let boardRow = 0;
-			let column = 0;
+			const selectors =
+				"#grid-container > div > button";
 
-			const n = 3;
+			const buttons =
+				document.querySelectorAll(selectors);
 
-			const cell =
-				document.querySelector("#grid-container > div > button");
+			buttons.forEach((button) => {
 
-			for (let row = 0; row < n; row++) {
+				button.addEventListener("click", () => {
 
-				for (let col = 0; col < n; col++) {
+					const rowIndex =
+						button.getAttribute("data-row");
 
-					cell.addEventListener("click", () => {
+					const row =
+						new Number(rowIndex);
 
-						boardRow =
-							row;
+					const columnIndex =
+						button.getAttribute("data-column");
 
-						column =
-							col;
+					const column =
+						new Number(columnIndex);
 
-						addSymbol(activePlayer, boardRow, column);
+					const message =
+						`Selected Row: ${row}\n` +
+						`Selected Column: ${column}`;
 
-					}); // addEventListener()
-
-					break;
+					alert(message);
 
 
-				} // for
 
-			} // for
+				}); // addEventListener()
 
-			// addSymbol
-			// 	(
-			// 		activePlayer,
-			// 		row,
-			// 		column
-			// 	);
+			}); // foreach
 
-		} // showPrompt()
+
+		} // makePlayerMove()
 
 	//=========================================================================
 
@@ -342,7 +349,7 @@ function Game() {
 
 			let isPlayerOneTurn =
 				(activePlayer === players[0])
-				&& !gameOver;
+				&& (!gameOver);
 
 			if (isPlayerOneTurn) {
 
@@ -566,4 +573,3 @@ const game =
 	Game();
 
 game.startGameBtnClick();
-
