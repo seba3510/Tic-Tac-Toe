@@ -131,6 +131,9 @@ function Game() {
 	const formElem =
 		document.querySelector("form");
 
+	const errorContainerElem =
+		document.querySelector("#error-container");
+
 	const playerOne =
 		Player("", "X");
 
@@ -236,9 +239,9 @@ function Game() {
 			const buttons =
 				document.querySelectorAll(selectors);
 
-			buttons.forEach((button) => {
+			displayTurn();
 
-				displayTurn();
+			buttons.forEach((button) => {
 
 				button.addEventListener("click", () => {
 
@@ -265,8 +268,6 @@ function Game() {
 
 					changeTurn();
 
-					displayTurn();
-
 				}); // addEventListener()
 
 			}); // foreach
@@ -285,7 +286,12 @@ function Game() {
 				column
 			) {
 
-			let isCellEmpty =
+			const para =
+				document.querySelector("#error-container > p");
+
+			para.textContent = "";
+
+			const isCellEmpty =
 				boardArr[row][column]
 				=== "-";
 
@@ -306,7 +312,8 @@ function Game() {
 				const error =
 					"This cell is occupied!";
 
-				alert(error);
+				para.innerHTML =
+					error;
 
 			} // else
 
@@ -320,7 +327,6 @@ function Game() {
 			let isPlayerOneTurn =
 				(activePlayer === players[0])
 				&& !gameOver;
-
 			if (isPlayerOneTurn) {
 
 				activePlayer =
@@ -340,6 +346,8 @@ function Game() {
 					players[1];
 
 			} // else
+
+			displayTurn();
 
 		} // changeTurn()
 
@@ -468,8 +476,7 @@ function Game() {
 		function showTieMsg() {
 
 			const message =
-				"The Game is Tied!\n" +
-				"Have a rematch, and take care of unfinished business.";
+				"The Game is Tied!";
 
 			alert(message);
 
@@ -486,7 +493,18 @@ function Game() {
 			const message =
 				`${activePlayer}'s turn`;
 
-			alert(message);
+			const container =
+				document.querySelector("#turns-container");
+
+			container.textContent = "";
+
+			const para =
+				document.createElement("p");
+
+			para.textContent =
+				message;
+
+			container.appendChild(para);
 
 		} // displayTurn()
 

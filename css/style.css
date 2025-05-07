@@ -1,7 +1,15 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+/********************************************************************/
+
 header {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
+	font-size: 3em;
 }
 
 /********************************************************************/
@@ -9,7 +17,8 @@ header {
 #grid-container {
 	display: grid;
 	grid-template-rows: repeat(3, 250px);
-	grid-template-columns: repeat(3, 0.2fr);
+	grid-template-columns: repeat(3, 0.12fr);
+	/* grid-template-columns: repeat(3, 0.2fr); */
 	justify-content: center;
 	margin-top: 8em;
 	border: none;
@@ -83,6 +92,7 @@ form > .btns-container {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
+	font-size: 2em;
 }
 
 /********************************************************************/
@@ -92,3 +102,15 @@ form > .btns-container {
 	border: none;
 	background-color: transparent;
 }
+
+/********************************************************************/
+
+#error-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	font-size: 3em;
+	color: red;
+}
+
+/********************************************************************/
