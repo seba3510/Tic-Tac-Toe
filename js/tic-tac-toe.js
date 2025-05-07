@@ -52,8 +52,8 @@ function GameBoard() {
 
 	//=========================================================================
 
-	const resetBoard =
-		function resetBoard() {
+	const clearBoard =
+		function clearBoard() {
 
 			for (let row = 0; row < 3; row++) {
 
@@ -66,7 +66,7 @@ function GameBoard() {
 
 			} // for
 
-		} // resetBoard()
+		} // clearBoard()
 
 	//=========================================================================
 
@@ -81,7 +81,7 @@ function GameBoard() {
 
 	return {
 		displayBoard,
-		resetBoard,
+		clearBoard,
 		getBoard,
 		numSymbols,
 		gridContainerElem
@@ -131,8 +131,8 @@ function Game() {
 	const formElem =
 		document.querySelector("form");
 
-	const errorContainerElem =
-		document.querySelector("#error-container");
+	const msgContainerElem =
+		document.querySelector("#message-container");
 
 	const playerOne =
 		Player("", "X");
@@ -169,7 +169,6 @@ function Game() {
 			return activePlayer;
 
 		} //getActivePlayer()
-
 
 	//=========================================================================
 
@@ -216,7 +215,7 @@ function Game() {
 
 			startGameBtnElem.addEventListener("click", () => {
 
-				dialogBoxElem.showModal();
+				dialogBoxElem.show();
 
 				saveNamesBtnClick();
 
@@ -226,10 +225,21 @@ function Game() {
 
 	//=========================================================================
 
+	const restartGameBtnClick =
+		function restartGameBtnClick() {
+
+			board.clearBoard();
+
+			playTurn();
+
+		} // restartGameBtnClick()
+
+	//=========================================================================
+
 	const playRound =
 		function playRound() {
 
-			board.resetBoard();
+			board.clearBoard();
 
 			board.numSymbols = 0;
 
@@ -272,7 +282,7 @@ function Game() {
 
 			}); // foreach
 
-			board.resetBoard();
+			board.clearBoard();
 
 		} // playRound()
 
@@ -287,7 +297,7 @@ function Game() {
 			) {
 
 			const para =
-				document.querySelector("#error-container > p");
+				document.querySelector("#message-container > p");
 
 			para.textContent = "";
 
@@ -312,8 +322,16 @@ function Game() {
 				const error =
 					"This cell is occupied!";
 
-				para.innerHTML =
+
+				para.style.color =
+					"red";
+
+				para.textContent =
 					error;
+
+				msgContainerElem.appendChild(para);
+
+				changeTurn();
 
 			} // else
 
@@ -464,9 +482,18 @@ function Game() {
 				getActivePlayer().name;
 
 			const message =
-				`Game Over!\n${activePlayer} wins!`;
+				`${activePlayer} wins!`;
 
-			alert(message);
+			const para =
+				document.querySelector("#message-container > p");
+
+			para.style.color
+			"black";
+
+			para.textContent = "";
+
+			para.textContent =
+				message;
 
 		} // showWinningMsg()
 
