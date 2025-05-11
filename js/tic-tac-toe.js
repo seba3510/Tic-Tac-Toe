@@ -124,7 +124,8 @@ function Game() {
 		document.querySelector("dialog");
 
 	const startGameBtnElem =
-		document.querySelector("#start-game-btn");
+		document.querySelector
+			("#start-game-btn");
 
 	const playerOneNameElem =
 		document.querySelector
@@ -323,6 +324,8 @@ function Game() {
 
 			if (isCellEmpty) {
 
+				determineSymbolColor();
+
 				boardArr[row][column] =
 					activePlayer.symbol;
 
@@ -351,6 +354,32 @@ function Game() {
 			} // else
 
 		} // addSymbol()
+
+	//=========================================================================
+
+	const determineSymbolColor =
+		function determineSymbolColor() {
+
+			const isPlayerOneTurn =
+				activePlayer === players[0] &&
+				!gameOver;
+
+			if (isPlayerOneTurn) {
+
+				cell.style.color =
+					"blue";
+
+			} // if
+
+			else {
+
+				cell.style.color =
+					"red";
+
+			} // else
+
+
+		} // determineSymbolColor()
 
 	//=========================================================================
 
@@ -503,13 +532,11 @@ function Game() {
 			const message =
 				`${activePlayer} wins!`;
 
-			const para =
-				document.querySelector
-					("#message-container > p");
+			const selector =
+				"#message-container > p";
 
-			const turnsContainer =
-				document.querySelector
-					("#turns-container > p");
+			const para =
+				document.querySelector(selector);
 
 			para.style.color =
 				"black";
@@ -534,9 +561,11 @@ function Game() {
 			const message =
 				"The Game is Tied!";
 
+			const selector =
+				"#message-container > p";
+
 			const para =
-				document.querySelector
-					("#message-container > p");
+				document.querySelector(selector);
 
 			para.style.fontSize =
 				"2em";
