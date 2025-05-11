@@ -179,8 +179,8 @@ function Game() {
 
 	//=========================================================================
 
-	const saveNamesBtnClick =
-		function saveNamesBtnClick() {
+	const savePlayerNames =
+		function savePlayerNames() {
 
 			const saveNamesBtn =
 				document.querySelector
@@ -214,33 +214,33 @@ function Game() {
 
 			}); // addEventListener()
 
-		} // saveNamesBtnClick()
+		} // savePlayerNames()
 
 	//=========================================================================
 
-	const startGameBtnClick =
-		function startGameBtnClick() {
+	const startGame =
+		function startGame() {
 
 			startGameBtnElem.addEventListener("click", () => {
 
 				dialogBoxElem.show();
 
-				saveNamesBtnClick();
+				savePlayerNames();
 
 			}); // addEventListener()
 
-		} // startGameBtnClick()
+		} // startGame()
 
 	//=========================================================================
 
-	const restartGameBtnClick =
-		function restartGameBtnClick() {
+	const restartGame =
+		function restartGame() {
 
 			board.clearBoard();
 
 			playTurn();
 
-		} // restartGameBtnClick()
+		} // restartGame()
 
 	//=========================================================================
 
@@ -597,7 +597,9 @@ function Game() {
 
 	//=========================================================================
 
-	return { startGameBtnClick };
+	return {
+		startGame
+	};
 
 } //Game()
 
@@ -611,4 +613,4 @@ board.displayBoard();
 const game =
 	Game();
 
-game.startGameBtnClick();
+game.startGame();
