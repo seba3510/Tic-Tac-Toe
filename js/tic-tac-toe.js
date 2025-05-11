@@ -10,16 +10,17 @@ function GameBoard() {
 	let numSymbols = 0;
 
 	const gridContainerElem =
-		document.querySelector("#grid-container");
+		document.querySelector
+			("#grid-container");
 
 	//=========================================================================
 
 	const displayBoard =
 		function displayBoard() {
 
-			while (gridContainerElem.firstChild) {
-				gridContainerElem.removeChild(gridContainerElem.firstChild)
-			}
+			// while (gridContainerElem.firstChild) {
+			// 	gridContainerElem.removeChild(gridContainerElem.firstChild)
+			// }
 
 			const n = 3;
 
@@ -32,6 +33,9 @@ function GameBoard() {
 
 					const button =
 						document.createElement("button");
+
+					button.style.fontSize =
+						"2rem";
 
 					button.setAttribute("data-row", `${row}`);
 
@@ -123,16 +127,19 @@ function Game() {
 		document.querySelector("#start-game-btn");
 
 	const playerOneNameElem =
-		document.querySelector("#player-one-name");
+		document.querySelector
+			("#player-one-name");
 
 	const playerTwoNameElem =
-		document.querySelector("#player-two-name");
+		document.querySelector
+			("#player-two-name");
 
 	const formElem =
 		document.querySelector("form");
 
 	const msgContainerElem =
-		document.querySelector("#message-container");
+		document.querySelector
+			("#message-container");
 
 	const playerOne =
 		Player("", "X");
@@ -176,7 +183,8 @@ function Game() {
 		function saveNamesBtnClick() {
 
 			const saveNamesBtn =
-				document.querySelector("#save-names-btn");
+				document.querySelector
+					("#save-names-btn");
 
 			saveNamesBtn.addEventListener("click", (event) => {
 
@@ -255,6 +263,12 @@ function Game() {
 
 				button.addEventListener("click", () => {
 
+					if (gameOver) {
+
+						return;
+
+					} // if
+
 					const rowIndex =
 						button.getAttribute("data-row");
 
@@ -296,14 +310,16 @@ function Game() {
 				column
 			) {
 
+			const selector =
+				"#message-container > p";
+
 			const para =
-				document.querySelector("#message-container > p");
+				document.querySelector(selector);
 
 			para.textContent = "";
 
 			const isCellEmpty =
-				boardArr[row][column]
-				=== "-";
+				(boardArr[row][column] === "-");
 
 			if (isCellEmpty) {
 
@@ -321,7 +337,6 @@ function Game() {
 
 				const error =
 					"This cell is occupied!";
-
 
 				para.style.color =
 					"red";
@@ -345,6 +360,7 @@ function Game() {
 			let isPlayerOneTurn =
 				(activePlayer === players[0])
 				&& !gameOver;
+
 			if (isPlayerOneTurn) {
 
 				activePlayer =
@@ -429,7 +445,8 @@ function Game() {
 					(boardArr[1][col] === boardArr[2][col])
 				) {
 
-					gameOver = true;
+					gameOver =
+						true;
 
 					showWinningMsg();
 
@@ -452,7 +469,8 @@ function Game() {
 				(boardArr[1][1] === boardArr[2][2])
 			) {
 
-				gameOver = true;
+				gameOver =
+					true;
 
 				showWinningMsg();
 
@@ -465,7 +483,8 @@ function Game() {
 				(boardArr[1][1] === boardArr[0][2])
 			) {
 
-				gameOver = true;
+				gameOver =
+					true;
 
 				showWinningMsg();
 
@@ -485,15 +504,25 @@ function Game() {
 				`${activePlayer} wins!`;
 
 			const para =
-				document.querySelector("#message-container > p");
+				document.querySelector
+					("#message-container > p");
 
-			para.style.color
-			"black";
+			const turnsContainer =
+				document.querySelector
+					("#turns-container > p");
+
+			para.style.color =
+				"black";
+
+			para.style.fontSize =
+				"2em";
 
 			para.textContent = "";
 
 			para.textContent =
 				message;
+
+			turnsContainer.textContent = "";
 
 		} // showWinningMsg()
 
@@ -505,7 +534,15 @@ function Game() {
 			const message =
 				"The Game is Tied!";
 
-			alert(message);
+			const para =
+				document.querySelector
+					("#message-container > p");
+
+			para.style.fontSize =
+				"2em";
+
+			para.textContent =
+				message;
 
 		} // showTieMsg()
 
@@ -521,7 +558,8 @@ function Game() {
 				`${activePlayer}'s turn`;
 
 			const container =
-				document.querySelector("#turns-container");
+				document.querySelector
+					("#turns-container");
 
 			container.textContent = "";
 
@@ -550,6 +588,8 @@ function Game() {
 					true;
 
 				showTieMsg();
+
+				return;
 
 			} // if
 
