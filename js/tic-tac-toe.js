@@ -324,7 +324,7 @@ function Game() {
 
 			if (isCellEmpty) {
 
-				determineSymbolColor();
+				determineSymbolColor(cell);
 
 				boardArr[row][column] =
 					activePlayer.symbol;
@@ -358,26 +358,21 @@ function Game() {
 	//=========================================================================
 
 	const determineSymbolColor =
-		function determineSymbolColor() {
+		function determineSymbolColor(cell) {
 
 			const isPlayerOneTurn =
-				activePlayer === players[0] &&
-				!gameOver;
+				(activePlayer === players[0]) &&
+				(!gameOver);
 
-			if (isPlayerOneTurn) {
+			const blue =
+				"blue";
 
-				cell.style.color =
-					"blue";
+			const red =
+				"red";
 
-			} // if
-
-			else {
-
-				cell.style.color =
-					"red";
-
-			} // else
-
+			cell.style.color =
+				isPlayerOneTurn ? blue
+					: red;
 
 		} // determineSymbolColor()
 
@@ -387,8 +382,8 @@ function Game() {
 		function changeTurn() {
 
 			let isPlayerOneTurn =
-				(activePlayer === players[0])
-				&& !gameOver;
+				(activePlayer === players[0]) &&
+				(!gameOver);
 
 			if (isPlayerOneTurn) {
 
