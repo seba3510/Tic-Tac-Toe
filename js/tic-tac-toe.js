@@ -77,8 +77,6 @@ function GameBoard() {
 
 			gridContainerElem.innerHTML = "";
 
-			// turnsContainerElem.innerHTML = "";
-
 		} // clearBoardDisplay()
 
 	//=========================================================================
@@ -98,7 +96,6 @@ function GameBoard() {
 		clearBoardDisplay,
 		getBoard,
 		numSymbols,
-		gridContainerElem
 	};
 
 } // GameBoard()
@@ -132,9 +129,6 @@ function Game() {
 
 	const dialogBoxElem =
 		document.querySelector("dialog");
-
-	const gridContainerElem =
-		board.gridContainerElem;
 
 	const startGameBtnElem =
 		document.querySelector
@@ -225,11 +219,14 @@ function Game() {
 
 				dialogBoxElem.close();
 
-				// playerOneNameElem.value = "";
+				playerOneNameElem.value = "";
 
-				// playerTwoNameElem.value = "";
+				playerTwoNameElem.value = "";
 
 				formElem.submit();
+
+				gameOver =
+					false;
 
 				playRound();
 
@@ -259,11 +256,6 @@ function Game() {
 
 			restartGameBtnElem.addEventListener("click", () => {
 
-
-				players[0].name = "";
-
-				players[1].name = "";
-
 				board.clearBoardArray();
 
 				board.clearBoardDisplay();
@@ -276,12 +268,22 @@ function Game() {
 
 				dialogBoxElem.showModal();
 
-				savePlayerNames();
+				const playerOneName =
+					playerOneNameElem.value.trim();
+
+				playerOne.name =
+					playerOneName;
+
+				const playerTwoName =
+					playerTwoName.value.trim();
+
+				playerTwo.name =
+					playerTwoName;
 
 				gameOver =
 					false;
 
-				playRound();
+				savePlayerNames();
 
 			}); // addEventListener
 
@@ -292,8 +294,6 @@ function Game() {
 	const playRound =
 		function playRound() {
 
-			// board.clearBoardDisplay();
-
 			board.numSymbols = 0;
 
 			const selectors =
@@ -303,7 +303,7 @@ function Game() {
 				document.querySelectorAll
 					(selectors);
 
-			// displayTurn(); 
+			displayTurn();
 
 			buttons.forEach((button) => {
 
@@ -380,6 +380,8 @@ function Game() {
 
 			else {
 
+				messageContainerElem.innerHTML = "";
+
 				const para =
 					document.createElement("p");
 				const error =
@@ -387,7 +389,6 @@ function Game() {
 
 				para.style.color =
 					"red";
-
 
 				para.textContent =
 					error;
@@ -438,7 +439,7 @@ function Game() {
 				previousPlayer =
 					players[0];
 
-			} //if
+			} // if
 
 			else {
 
@@ -449,8 +450,6 @@ function Game() {
 					players[1];
 
 			} // else
-
-			// displayTurn();
 
 		} // changeTurn()
 
@@ -494,7 +493,7 @@ function Game() {
 
 				} // if
 
-			} //for
+			} // for
 
 		} // checkRows()
 
@@ -628,6 +627,8 @@ function Game() {
 
 			const para =
 				document.createElement("p");
+
+			para.textContent = ""
 
 			para.textContent =
 				message;
