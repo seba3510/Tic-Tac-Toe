@@ -1,7 +1,7 @@
-* {
+/* * {
 	margin: 0;
 	padding: 0;
-}
+} */
 
 /********************************************************************/
 
@@ -19,7 +19,7 @@ header {
 	grid-template-columns: repeat(3, 0.12fr);
 	/* grid-template-columns: repeat(3, 0.2fr); */
 	justify-content: center;
-	margin-top: 8em;
+	margin-top: 1em;
 	border: none;
 }
 

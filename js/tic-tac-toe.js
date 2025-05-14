@@ -18,9 +18,7 @@ function GameBoard() {
 	const displayBoard =
 		function displayBoard() {
 
-			// while (gridContainerElem.firstChild) {
-			// 	gridContainerElem.removeChild(gridContainerElem.firstChild)
-			// }
+			clearBoardDisplay();
 
 			const n = 3;
 
@@ -56,8 +54,8 @@ function GameBoard() {
 
 	//=========================================================================
 
-	const clearBoard =
-		function clearBoard() {
+	const clearBoardArray =
+		function clearBoardArray() {
 
 			for (let row = 0; row < 3; row++) {
 
@@ -70,7 +68,16 @@ function GameBoard() {
 
 			} // for
 
-		} // clearBoard()
+		} // clearBoardArray()
+
+	//=========================================================================
+
+	const clearBoardDisplay =
+		function clearBoardDisplay() {
+
+			gridContainerElem.innerHTML = "";
+
+		} // clearBoardDisplay()
 
 	//=========================================================================
 
@@ -85,7 +92,8 @@ function GameBoard() {
 
 	return {
 		displayBoard,
-		clearBoard,
+		clearBoardArray,
+		clearBoardDisplay,
 		getBoard,
 		numSymbols,
 		gridContainerElem
@@ -123,9 +131,16 @@ function Game() {
 	const dialogBoxElem =
 		document.querySelector("dialog");
 
+	const gridContainerElem =
+		board.gridContainerElem;
+
 	const startGameBtnElem =
 		document.querySelector
 			("#start-game-btn");
+
+	const restartGameBtnElem =
+		document.querySelector
+			("#restart-game-btn");
 
 	const playerOneNameElem =
 		document.querySelector
@@ -138,7 +153,7 @@ function Game() {
 	const formElem =
 		document.querySelector("form");
 
-	const msgContainerElem =
+	const messageContainerElem =
 		document.querySelector
 			("#message-container");
 
@@ -148,17 +163,18 @@ function Game() {
 	const playerTwo =
 		Player("", "O");
 
-	const players = [
-		{
-			name: playerOne.name,
-			symbol: playerOne.symbol,
-		},
+	const players =
+		[
+			{
+				name: playerOne.name,
+				symbol: playerOne.symbol,
+			},
 
-		{
-			name: playerTwo.name,
-			symbol: playerTwo.symbol,
-		},
-	];
+			{
+				name: playerTwo.name,
+				symbol: playerTwo.symbol,
+			},
+		];
 
 	let activePlayer =
 		players[0];
@@ -169,7 +185,6 @@ function Game() {
 		false;
 
 	//=========================================================================
-
 
 	const getActivePlayer =
 		function getActivePlayer() {
@@ -213,7 +228,7 @@ function Game() {
 
 				playRound();
 
-			}); // addEventListener()
+			}); // addEventListener
 
 		} // savePlayerNames()
 
@@ -224,11 +239,11 @@ function Game() {
 
 			startGameBtnElem.addEventListener("click", () => {
 
-				dialogBoxElem.show();
+				dialogBoxElem.showModal();
 
 				savePlayerNames();
 
-			}); // addEventListener()
+			}); // addEventListener
 
 		} // startGame()
 
@@ -237,9 +252,25 @@ function Game() {
 	const restartGame =
 		function restartGame() {
 
-			board.clearBoard();
+			restartGameBtnElem.addEventListener("click", () => {
 
-			playTurn();
+				board.clearBoardArray();
+
+				board.clearBoardDisplay();
+
+				board.displayBoard();
+
+				const para =
+					document.querySelector
+						("#turns-container > p");
+
+				para.textContext = "";
+
+
+
+				playRound();
+
+			}); // addEventListener
 
 		} // restartGame()
 
@@ -248,7 +279,7 @@ function Game() {
 	const playRound =
 		function playRound() {
 
-			board.clearBoard();
+			// board.clearBoardDisplay();
 
 			board.numSymbols = 0;
 
@@ -256,7 +287,8 @@ function Game() {
 				"#grid-container > div > button";
 
 			const buttons =
-				document.querySelectorAll(selectors);
+				document.querySelectorAll
+					(selectors);
 
 			displayTurn();
 
@@ -271,7 +303,8 @@ function Game() {
 					} // if
 
 					const rowIndex =
-						button.getAttribute("data-row");
+						button.getAttribute
+							("data-row");
 
 					const row =
 						new Number(rowIndex);
@@ -293,11 +326,11 @@ function Game() {
 
 					changeTurn();
 
-				}); // addEventListener()
+				}); // addEventListener
 
-			}); // foreach
+			}); // forEach
 
-			board.clearBoard();
+			// board.clearBoard();
 
 		} // playRound()
 
@@ -381,7 +414,7 @@ function Game() {
 	const changeTurn =
 		function changeTurn() {
 
-			let isPlayerOneTurn =
+			const isPlayerOneTurn =
 				(activePlayer === players[0]) &&
 				(!gameOver);
 
@@ -544,8 +577,6 @@ function Game() {
 			para.textContent =
 				message;
 
-			turnsContainer.textContent = "";
-
 		} // showWinningMsg()
 
 	//=========================================================================
@@ -560,7 +591,8 @@ function Game() {
 				"#message-container > p";
 
 			const para =
-				document.querySelector(selector);
+				document.querySelector
+					(selector);
 
 			para.style.fontSize =
 				"2em";
@@ -575,11 +607,11 @@ function Game() {
 	const displayTurn =
 		function displayTurn() {
 
-			const activePlayer =
+			const player =
 				getActivePlayer().name;
 
 			const message =
-				`${activePlayer}'s turn`;
+				`${player}'s turn`;
 
 			const container =
 				document.querySelector
@@ -603,8 +635,7 @@ function Game() {
 		function checkTie() {
 
 			const isBoardFull =
-				board.numSymbols
-				=== 9;
+				(board.numSymbols === 9);
 
 			if (isBoardFull) {
 
@@ -622,7 +653,8 @@ function Game() {
 	//=========================================================================
 
 	return {
-		startGame
+		startGame,
+		restartGame
 	};
 
 } //Game()
@@ -638,3 +670,5 @@ const game =
 	Game();
 
 game.startGame();
+
+game.restartGame();
