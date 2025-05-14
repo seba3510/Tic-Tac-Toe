@@ -370,7 +370,6 @@ function Game() {
 
 			else {
 
-
 				const para =
 					document.createElement("p");
 				const error =
@@ -557,17 +556,16 @@ function Game() {
 	const showWinningMsg =
 		function showWinningMsg() {
 
+			messageContainerElem.innerHTML = "";
+
 			const activePlayer =
 				getActivePlayer().name;
 
 			const message =
 				`${activePlayer} wins!`;
 
-			const selector =
-				"#message-container > p";
-
 			const para =
-				document.querySelector(selector);
+				document.createElement("p");
 
 			para.style.color =
 				"black";
@@ -575,10 +573,10 @@ function Game() {
 			para.style.fontSize =
 				"2em";
 
-			para.textContent = "";
-
 			para.textContent =
 				message;
+
+			messageContainerElem.appendChild(para);
 
 		} // showWinningMsg()
 
@@ -587,21 +585,21 @@ function Game() {
 	const showTieMsg =
 		function showTieMsg() {
 
-			const message =
-				"The Game is Tied!";
+			messageContainerElem.innerHTML = "";
 
-			const selector =
-				"#message-container > p";
+			const message =
+				"The Game is Tied!"
 
 			const para =
-				document.querySelector
-					(selector);
+				document.createElement("p");
 
 			para.style.fontSize =
-				"2em";
+				"1em";
 
 			para.textContent =
 				message;
+
+			messageContainerElem.appendChild(para);
 
 		} // showTieMsg()
 
@@ -634,7 +632,8 @@ function Game() {
 		function checkTie() {
 
 			const isBoardFull =
-				(board.numSymbols === 9);
+				(board.numSymbols === 9)
+				&& (!gameOver);
 
 			if (isBoardFull) {
 
