@@ -77,6 +77,8 @@ function GameBoard() {
 
 			gridContainerElem.innerHTML = "";
 
+			// turnsContainerElem.innerHTML = "";
+
 		} // clearBoardDisplay()
 
 	//=========================================================================
@@ -156,6 +158,9 @@ function Game() {
 	const messageContainerElem =
 		document.querySelector
 			("#message-container");
+
+	const turnsContainerElem =
+		document.querySelector("#turns-container");
 
 	const playerOne =
 		Player("", "X");
@@ -344,13 +349,7 @@ function Game() {
 				column
 			) {
 
-			const selector =
-				"#message-container > p";
-
-			const para =
-				document.querySelector(selector);
-
-			para.textContent = "";
+			messageContainerElem.innerHTML = "";
 
 			const isCellEmpty =
 				(boardArr[row][column] === "-");
@@ -371,16 +370,20 @@ function Game() {
 
 			else {
 
+
+				const para =
+					document.createElement("p");
 				const error =
 					"This cell is occupied!";
 
 				para.style.color =
 					"red";
 
+
 				para.textContent =
 					error;
 
-				msgContainerElem.appendChild(para);
+				messageContainerElem.appendChild(para);
 
 				changeTurn();
 
@@ -613,11 +616,7 @@ function Game() {
 			const message =
 				`${player}'s turn`;
 
-			const container =
-				document.querySelector
-					("#turns-container");
-
-			container.textContent = "";
+			turnsContainerElem.innerHTML = "";
 
 			const para =
 				document.createElement("p");
@@ -625,7 +624,7 @@ function Game() {
 			para.textContent =
 				message;
 
-			container.appendChild(para);
+			turnsContainerElem.appendChild(para);
 
 		} // displayTurn()
 
