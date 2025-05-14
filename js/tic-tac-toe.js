@@ -225,9 +225,9 @@ function Game() {
 
 				dialogBoxElem.close();
 
-				playerOneNameElem.value = "";
+				// playerOneNameElem.value = "";
 
-				playerTwoNameElem.value = "";
+				// playerTwoNameElem.value = "";
 
 				formElem.submit();
 
@@ -259,19 +259,27 @@ function Game() {
 
 			restartGameBtnElem.addEventListener("click", () => {
 
+
+				players[0].name = "";
+
+				players[1].name = "";
+
 				board.clearBoardArray();
 
 				board.clearBoardDisplay();
 
+				turnsContainerElem.innerHTML = "";
+
+				messageContainerElem.innerHTML = "";
+
 				board.displayBoard();
 
-				const para =
-					document.querySelector
-						("#turns-container > p");
+				dialogBoxElem.showModal();
 
-				para.textContext = "";
+				savePlayerNames();
 
-
+				gameOver =
+					false;
 
 				playRound();
 
@@ -295,7 +303,7 @@ function Game() {
 				document.querySelectorAll
 					(selectors);
 
-			displayTurn();
+			// displayTurn(); 
 
 			buttons.forEach((button) => {
 
@@ -330,6 +338,8 @@ function Game() {
 					determineWinner();
 
 					changeTurn();
+
+					displayTurn();
 
 				}); // addEventListener
 
@@ -440,7 +450,7 @@ function Game() {
 
 			} // else
 
-			displayTurn();
+			// displayTurn();
 
 		} // changeTurn()
 
