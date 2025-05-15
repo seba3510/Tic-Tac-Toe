@@ -241,6 +241,9 @@ function Game() {
 
 			startGameBtnElem.addEventListener("click", () => {
 
+				restartGameBtnElem.disabled =
+					true;
+
 				dialogBoxElem.showModal();
 
 				savePlayerNames();
@@ -267,6 +270,9 @@ function Game() {
 				board.displayBoard();
 
 				dialogBoxElem.showModal();
+
+				restartGameBtnElem.disabled =
+					true;
 
 				const playerOneName =
 					playerOneNameElem.value.trim();
@@ -565,6 +571,9 @@ function Game() {
 	const showWinningMsg =
 		function showWinningMsg() {
 
+			restartGameBtnElem.disabled =
+				false;
+
 			messageContainerElem.innerHTML = "";
 
 			const activePlayer =
@@ -593,6 +602,9 @@ function Game() {
 
 	const showTieMsg =
 		function showTieMsg() {
+
+			restartGameBtnElem.disabled =
+				false;
 
 			messageContainerElem.innerHTML = "";
 
