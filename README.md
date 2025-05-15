@@ -9,6 +9,10 @@ This game has the 2 buttons: One that starts the game, and another one that rest
 
 As recommended by the [project's instructions](https://www.theodinproject.com/lessons/node-path-javascript-tic-tac-toe), I first made sure that the game worked in the console. This "Divide and Conquer" approach was really useful, because instead of focusing on the logic of the game, and how it worked with the DOM and HTML/CSS, I only focused on making sure that the logic of the game worked as expected.
 
+# Live Preview
+
+[Click here, stranger](https://seba3510.github.io/Tic-Tac-Toe/)
+
 # License
 
 Copyright [2025] [Sebastián L. Corporán Berríos]
