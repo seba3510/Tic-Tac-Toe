@@ -271,6 +271,9 @@ function Game() {
 
 				dialogBoxElem.showModal();
 
+				restartGameBtnElem.disabled =
+					true;
+
 				const playerOneName =
 					playerOneNameElem.value.trim();
 
